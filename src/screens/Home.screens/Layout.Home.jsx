@@ -2,7 +2,7 @@ import React from "react";
 import HeaderDashboard from "../Headers.screens/HeadersHome.Headers";
 import { Outlet } from "react-router-dom";
 
-export default function HomeLayout() {
+export default function Layout() {
   return (
     <>
       <div className="w-full h-screen mx-auto">
@@ -15,11 +15,11 @@ export default function HomeLayout() {
           </div>
         </div>
         {/* Main Content */}
-        <div className=" xl:w-[1440px] lg:w-[1440px] w-full mx-auto">
-          <main className="xl:w-[1152px] lg:w-[1152px] w-full xl:mt-[72px] lg:*[72px] mt-[0px] mx-auto">
+        {/* <div className="xl:w-[1440px] lg:w-[1440px] w-full mx-auto"> */}
+          {/* <main className="xl:w-[1152px] lg:w-[1152px] w-full xl:mt-[72px] lg:[72px] mt-[0px] mx-auto"> */}
             <Outlet />
-          </main>
-        </div>
+          {/* </main> */}
+        {/* </div> */}
       </div>
     </>
   );
