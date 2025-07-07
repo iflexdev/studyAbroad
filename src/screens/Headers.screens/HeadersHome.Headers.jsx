@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import Logo from "../../utils/defaultHandlers/Logo";
 export default function HeaderDashboard() {
   const pathName = location.pathname;
+  const navigate = useNavigate();
 
   /* -------------------------------------------------------------------------- */
   /*                                 for Desktop                                */
@@ -16,7 +18,7 @@ export default function HeaderDashboard() {
       : "home"
   );
   const menuItems = [
-    { id: "home", title: "Home", to: "", activeDesktop: true },
+    { id: "home", title: "Home", to: "/", activeDesktop: true },
     {
       id: "students",
       title: "For Students",
@@ -43,24 +45,28 @@ export default function HeaderDashboard() {
     },
   ];
 
+  const handleSearch = () => {
+    navigate("/searchPrograms");
+  };
+
   return (
     <>
       {/* desktop */}
       <div className="fixed top-0 left-0 z-50 w-full shadow-lg bg-white/80 backdrop-blur-md">
-        <div className={`w-full lg:px-8 md:px-6 px-4 mx-auto`}>
-          <div className="lg:h-[72px] md:h-[60px] h-[60px] items-center flex ">
+        {/* <div className={`w-full lg:px-8 md:px-6 px-4 mx-auto`}> */}
+        <div className="container mx-auto">
+          <div className="h-20 items-center flex ">
             <div className="grid grid-cols-1 w-full h-[48px]">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-4">
                   <div className="">
-                    <Link to="">
-                      {/* <Logo name="stunelWebsiteLogo" alt="Stunel Logo" /> */}
-                      LOGO
+                    <Link to="/">
+                      <Logo name="logo" alt="study abroad Logo" className="w-fit" />
                     </Link>
                   </div>
-                  <div className="border">search</div>
+                  <div className="border border-gray-300 rounded-full px-4 py-2 cursor-pointer" onClick={handleSearch} role="button">search</div>
                 </div>
-                <div className="flex items-center">
+                <div className="flex items-center gap-5">
                   <div className="flex items-center">
                     {menuItems.map((item) => {
                       return (
@@ -69,11 +75,11 @@ export default function HeaderDashboard() {
                           onClick={() => setActiveDesktop(item.id)}
                           className={`inline-block mx-4 ${
                             activeDesktop === item.id
-                              ? "font-bold text-black"
+                              ? "font-bold text-blue-500"
                               : ""
                           }`}
                         >
-                          <Link to={item.to}>{item.title}</Link>
+                          <Link to={item.to} className="font-semibold">{item.title}</Link>
                         </div>
                       );
                     })}
