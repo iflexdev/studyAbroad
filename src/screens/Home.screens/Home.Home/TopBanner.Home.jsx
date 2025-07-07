@@ -3,7 +3,7 @@ import React from "react";
 export default function TopBanner() {
   return (
     <>
-      <div className="h-[680px] ">
+      <div className="h-[680px]">
         <img
           src="/images/home_topBanner_bg.png"
           alt=""

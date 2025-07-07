@@ -4,7 +4,7 @@ import TopBanner from "./TopBanner.Home";
 export default function HomeLayout() {
   return (
     <>
-      <TopBanner/>
+      <TopBanner />
     </>
   );
 }

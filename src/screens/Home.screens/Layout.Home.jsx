@@ -10,7 +10,7 @@ export default function Layout() {
         <div className="w-full shadow-md shadow-[#0000000A]">
           <div className="lg:w-[1440px] xl:w-[1440px] w-full mx-auto">
             <div className="lg:w-[1152px] xl:w-[1152px] w-full mx-auto">
-                <HeaderDashboard/>
+                <HeaderDashboard />
             </div>
           </div>
         </div>
