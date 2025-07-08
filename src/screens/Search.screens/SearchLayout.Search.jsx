@@ -8,7 +8,7 @@ export default function SearchLayout() {
       <header className="fixed z-[10]">
         <HeaderDashboard />
       </header>
-      <main className="relative top-20">
+      <main className="relative top-4">
         <Outlet />
       </main>
     </>
