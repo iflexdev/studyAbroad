@@ -58,13 +58,13 @@ export default function HeaderDashboard() {
           <div className="h-20 items-center flex ">
             <div className="grid grid-cols-1 w-full h-[48px]">
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-10">
                   <div className="">
                     <Link to="/">
                       <Logo name="logo" alt="study abroad Logo" className="w-fit" />
                     </Link>
                   </div>
-                  <div className="border border-gray-300 rounded-full px-4 py-2 cursor-pointer" onClick={handleSearch} role="button">search</div>
+                  <div className="border border-gray-300 w-100 rounded-full px-4 py-2 cursor-pointer" onClick={handleSearch} role="button">search</div>
                 </div>
                 <div className="flex items-center gap-5">
                   <div className="flex items-center">

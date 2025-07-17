@@ -1,16 +1,18 @@
 import React from "react";
-import HeaderDashboard from "../Headers.screens/HeadersHome.Headers";
-import { Outlet } from "react-router-dom";
+import Filter from "./Filter.Search";
+import ProgramList from "./ProgramsList.Search";
 
 export default function SearchLayout() {
   return (
     <>
-      <header className="fixed z-[10]">
-        <HeaderDashboard />
-      </header>
-      <main className="relative top-20">
-        <Outlet />
-      </main>
+      <div className="flex flex-row gap-10 py-[22px] px-10 items-start">
+        <div className="w-[312px]">
+          <Filter />
+        </div>
+        <div className="w-full">
+          <ProgramList />
+        </div>
+      </div>
     </>
   );
 }

@@ -1,5 +1,57 @@
-.home-Top-Banner-Bg{
-    background-image: url("/images/home_topBanner_bg.png");
-    background-position:center;
-    background-size:cover;
+.home-Top-Banner-Bg {
+  background-image: url("/images/home_topBanner_bg.png");
+  background-position: center;
+  background-size: cover;
+}
+/* -------------------------------------------------------------------------- */
+/*                       Hide ScrollBars (Consolidated)                       */
+/* -------------------------------------------------------------------------- */
+.no-scrollbar,
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+.no-scrollbar::-webkit-scrollbar,
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+  /* Chrome, Safari, Edge */
+}
+.custom-scrollbar {
+  overflow-y: scroll;
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: #1f5fc7 #ffffff; /* thumb track */
+}
+
+/* Chrome, Safari and Edge */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #ffffff; /* light gray */
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #1f5fc7; /* Tailwind blue-500 */
+  border-radius: 10px;
+  border: 1px solid #ffffff; /* creates padding around thumb */
+}
+/* -------------------------------------------------------------------------- */
+/*                       Custom default platform colors                       */
+/* -------------------------------------------------------------------------- */
+
+:root {
+  --color-FilterHeaderBg: #eef4ff;
+  --color-primary: #1f5fc7;
+}
+
+.primary {
+  background-color: var(--color-primary);
+}
+.FilterHeaderBg {
+  background-color: var(--color-FilterHeaderBg);
 }

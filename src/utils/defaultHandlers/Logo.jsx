@@ -13,7 +13,7 @@ export default function Logo({ name, alt="", className="w-6 h-6" }) {
     );
   return (
     <>
-      <img src={`/images/logo/${src}`} alt={alt || name} className={className} />
+      <img src={`/logo/${src}`} alt={alt || name} className={className} />
     </>
   );
 }
