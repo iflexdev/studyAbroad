@@ -12,7 +12,7 @@ export default function Icons({ name, alt="", className="w-6 h-6" }) {
     );
   return (
     <>
-      <img src={`/images/icons/${src}`} alt={alt || name} className={className} />
+      <img src={`/icons/${src}`} alt={alt || name} className={className} />
     </>
   );
 }
