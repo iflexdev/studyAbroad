@@ -17,7 +17,7 @@ export default function TopBanner() {
                 </p>
               </div>
               <div className="flex items-center gap-4">
-                <button className="bg-blue-500 w-49 h-15  font-semibold text-white rounded-full px-4 py-2 hover:bg-blue-600 transition duration-300 ">
+                <button className="primary w-49 h-15  font-semibold text-white rounded-full px-4 py-2 hover:bg-blue-600 transition duration-300 ">
                   Start Your Journey
                 </button>
               </div>

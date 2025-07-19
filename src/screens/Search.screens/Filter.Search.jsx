@@ -1,24 +1,40 @@
 import React, { useEffect, useState } from "react";
-import { filters } from "./filter";
-import { ChevronDown, ChevronUp } from "lucide-react";
+// import { filters } from "./filter";
+import { ChevronDown } from "lucide-react";
 
-export default function Filter() {
+export default function Filter({
+  countries,
+  universities,
+  courseLevel,
+  programTypes,
+}) {
+  const filtersTitle = [
+    "Countries",
+    "Universities",
+    "Programs",
+    "Course Level",
+  ];
   const [open, setOpen] = useState(new Set());
+  // const [checked, setChecked] = useState(false);
+  // const [alert, setAlert] = useState(null);
+
+  const filtersData = {
+    Countries: countries,
+    Universities: universities,
+    Programs: programTypes,
+    "Course Level": courseLevel,
+  };
 
   useEffect(() => {
-    const allOpen = new Set(filters.map((_, index) => index));
-    // if (!open) {
-    setOpen(allOpen);
-    //   toggleClose(0);
-    // }
+    setOpen(new Set(filtersTitle));
   }, []);
-  const toggleClose = (id) => {
+  const toggleAccordion = (title) => {
     setOpen((prev) => {
       const newOpen = new Set(prev);
-      if (newOpen.has(id)) {
-        newOpen.delete(id);
+      if (newOpen.has(title)) {
+        newOpen.delete(title);
       } else {
-        newOpen.add(id);
+        newOpen.add(title);
       }
       return newOpen;
     });
@@ -29,64 +45,69 @@ export default function Filter() {
       <div className="space-y-4">
         <div className="flex flex-col justify-start gap-y-4 items-start">
           <h2 className="text-2xl font-semibold">Filter</h2>
-          <input
-            type="text"
-            placeholder="Search"
-            className="w-full border-2 border-gray-300 rounded h-12 p-2 bg-gray-100"
-          />
         </div>
 
         <div className="">
-          {filters.map((filter, index) => {
-            const isOpen = open.has(index);
-            return (
-              <div
-                className="flex flex-col justify-start items-start mt-4 border"
-                key={filter.id}
-              >
+          {filtersTitle.map((title) => (
+            <div
+              className="flex flex-col justify-start items-start mt-4 border"
+              key={title}
+            >
+              <div className="w-full">
                 <div
-                  // id={filter.id}
-                  onClick={() => toggleClose(index)}
+                  onClick={() => toggleAccordion(title)}
                   className={`h-12 flex justify-between items-center w-full px-4 ${
-                    isOpen ? "FilterHeaderBg" : "bg-white"
+                    open.has(title) ? "FilterHeaderBg" : "bg-white"
                   }`}
                 >
-                  <h2 className="text-base font-semibold">{filter.title}</h2>
-                  <span className="">
-                    {open ? <ChevronUp /> : <ChevronDown />}
+                  <h2 className="text-base font-semibold uppercase">
+                    {title}
+                  </h2>
+                  <span
+                    className={`transition-transform duration-300 ease-in-out transform ${
+                      open.has(title) ? "rotate-180" : "rotate-0"
+                    }`}
+                  >
+                    <ChevronDown />
                   </span>
                 </div>
-                {isOpen && (
-                  <div className="max-h-[220px] overflow-y-scroll no-scrollbar py-3 w-full px-4">
-                    {Array.isArray(filter?.options)
-                      ? filter.options.map((item) => (
-                          <div
-                            className="flex items-center justify-between py-1"
-                            key={item.id}
-                          >
-                            <div className="flex items-center">
-                              <input
-                                type="checkbox"
-                                className="w-[18px] h-[18px]"
-                                id={item.id}
-                              />
-                              <span className="ml-2 text-[14px]">
-                                {item.label}
-                              </span>
-                            </div>
-                            <div>
-                              <p className="text-[12px] text-gray-400">
-                                {item.count}
-                              </p>
-                            </div>
-                          </div>
-                        ))
-                      : null}
-                  </div>
-                )}
+                <div className="">
+                  <input
+                    type="text"
+                    className="w-full border-y border-gray-300 px-1 py-1"
+                    placeholder={`Search ${title}...`}
+                  />
+                </div>
               </div>
-            );
-          })}
+              {open.has(title) && (
+                <div className="max-h-[220px] overflow-y-scroll no-scrollbar py-3 w-full px-4">
+                  {(filtersData[title] || []).map((item, index) => (
+                    <div
+                      className="flex items-center justify-between gap-1 py-1"
+                      key={index}
+                    >
+                      <div className="grid grid-cols-[18px_auto] items-center justify-start gap-2">
+                        <input
+                          type="checkbox"
+                          className="w-[18px] h-[18px]"
+                          id={item.id}
+                          value={item.id || item.name || item.title}
+                        />
+                        <label className="text-[14px]">
+                          {item.name || item.title}
+                        </label>
+                      </div>
+                      <div>
+                        <p className="text-[12px] text-gray-400">
+                          {item.count || ""}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
         </div>
       </div>
     </>
