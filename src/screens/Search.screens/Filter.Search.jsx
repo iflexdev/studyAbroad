@@ -7,6 +7,8 @@ export default function Filter({
   universities,
   courseLevel,
   programTypes,
+  setfilteredProgramsList,
+  programCards
 }) {
   const filtersTitle = [
     "Countries",
@@ -15,8 +17,10 @@ export default function Filter({
     "Course Level",
   ];
   const [open, setOpen] = useState(new Set());
-  // const [checked, setChecked] = useState(false);
-  // const [alert, setAlert] = useState(null);
+  const [selectedCountries, setSelectedCountries] = useState([]);
+  const [selectedUniversities, setSelectedUniversities] = useState([]);
+  const [selectedPrograms, setSelectedPrograms] = useState([]);
+  const [selectedCourseLevels, setSelectedCourseLevels] = useState([]);
 
   const filtersData = {
     Countries: countries,
@@ -28,6 +32,7 @@ export default function Filter({
   useEffect(() => {
     setOpen(new Set(filtersTitle));
   }, []);
+
   const toggleAccordion = (title) => {
     setOpen((prev) => {
       const newOpen = new Set(prev);
@@ -39,6 +44,81 @@ export default function Filter({
       return newOpen;
     });
   };
+
+  /* -------------------------------------------------------------------------- */
+  /*                filter the programs according to the side bar               */
+  /* -------------------------------------------------------------------------- */
+  const filterPrograms = (title, id, isChecked) => {
+    const applyFilters = (countries, universities, programs, courseLevels) => {
+      let filteredData = programCards;
+
+      if (countries.length > 0) {
+        filteredData = filteredData.filter((data) =>
+          countries.includes(data?.country_id)
+        );
+      }
+
+      if (universities.length > 0) {
+        filteredData = filteredData.filter((data) =>
+          universities.includes(data?.university_id)
+        );
+      }
+
+      if (programs.length > 0) {
+        filteredData = filteredData.filter((data) =>
+          programs.includes(data?.program_id)
+        );
+      }
+
+      if (courseLevels.length > 0) {
+        filteredData = filteredData.filter((data) =>
+          courseLevels.includes(data?.study_levels_id)
+        );
+      }
+
+      setfilteredProgramsList(
+        countries.length > 0 ||
+          universities.length > 0 ||
+          programs.length > 0 ||
+          courseLevels.length > 0
+          ? filteredData || []
+          : programCards
+      );
+    };
+
+    if (title === "Countries") {
+      setSelectedCountries((prev) => {
+        const updated = isChecked ? [...prev, id] : prev.filter((c) => c !== id);
+        applyFilters(updated, selectedUniversities, selectedPrograms, selectedCourseLevels);
+        return updated;
+      });
+    }
+
+    if (title === "Universities") {
+      setSelectedUniversities((prev) => {
+        const updated = isChecked ? [...prev, id] : prev.filter((u) => u !== id);
+        applyFilters(selectedCountries, updated, selectedPrograms, selectedCourseLevels);
+        return updated;
+      });
+    }
+
+    if (title === "Programs") {
+      setSelectedPrograms((prev) => {
+        const updated = isChecked ? [...prev, id] : prev.filter((p) => p !== id);
+        applyFilters(selectedCountries, selectedUniversities, updated, selectedCourseLevels);
+        return updated;
+      });
+    }
+
+    if (title === "Course Level") {
+      setSelectedCourseLevels((prev) => {
+        const updated = isChecked ? [...prev, id] : prev.filter((lvl) => lvl !== id);
+        applyFilters(selectedCountries, selectedUniversities, selectedPrograms, updated);
+        return updated;
+      });
+    }
+  };
+
 
   return (
     <>
@@ -56,17 +136,15 @@ export default function Filter({
               <div className="w-full">
                 <div
                   onClick={() => toggleAccordion(title)}
-                  className={`h-12 flex justify-between items-center w-full px-4 ${
-                    open.has(title) ? "FilterHeaderBg" : "bg-white"
-                  }`}
+                  className={`h-12 flex justify-between items-center w-full px-4 ${open.has(title) ? "FilterHeaderBg" : "bg-white"
+                    }`}
                 >
                   <h2 className="text-base font-semibold uppercase">
                     {title}
                   </h2>
                   <span
-                    className={`transition-transform duration-300 ease-in-out transform ${
-                      open.has(title) ? "rotate-180" : "rotate-0"
-                    }`}
+                    className={`transition-transform duration-300 ease-in-out transform ${open.has(title) ? "rotate-180" : "rotate-0"
+                      }`}
                   >
                     <ChevronDown />
                   </span>
@@ -92,6 +170,7 @@ export default function Filter({
                           className="w-[18px] h-[18px]"
                           id={item.id}
                           value={item.id || item.name || item.title}
+                          onChange={(e) => filterPrograms(title, title === "Programs"?item.course_id:item.id, e.target.checked)}
                         />
                         <label className="text-[14px]">
                           {item.name || item.title}

@@ -15,10 +15,14 @@ export default function SearchLayout() {
   const [universities, setUniversities] = useState([]);
   const [courseLevel, setCourseLevel] = useState([]);
   const [programTypes, setProgramTypes] = useState([]);
+  const [filteredProgramsList, setfilteredProgramsList] = useState([]);
 
   /* --------------------------- program card state -------------------------- */
   const [programCards, setProgramCards] = useState([]);
 
+  /* -------------------------------------------------------------------------- */
+  /*         useEffect to fetch data of country, programs and university        */
+  /* -------------------------------------------------------------------------- */
   useEffect(() => {
     const fetchAllData = async () => {
       const [c, u, cl, pt, pc] = await Promise.all([
@@ -42,6 +46,7 @@ export default function SearchLayout() {
       }
       if (pc) {
         setProgramCards(pc.data || []);
+        setfilteredProgramsList(pc.data || [])
       }
     };
     fetchAllData();
@@ -56,11 +61,13 @@ export default function SearchLayout() {
           universities={universities}
           courseLevel={courseLevel}
           programTypes={programTypes}
+          setfilteredProgramsList={setfilteredProgramsList}
+          programCards={programCards}
           />
         </div>
         <div className="w-full">
           <ProgramList 
-          programCards={programCards}
+          programCards={filteredProgramsList}
           />
         </div>
       </div>
