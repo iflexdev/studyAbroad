@@ -52,9 +52,9 @@ export default function HeaderDashboard() {
   return (
     <>
       {/* desktop */}
-      <div className="fixed top-0 left-0 z-50 w-full shadow-lg bg-white/80 backdrop-blur-md">
+      <div className="fixed top-0 left-0 z-50 w-full shadow-md bg-white/80 backdrop-blur-md">
         {/* <div className={`w-full lg:px-8 md:px-6 px-4 mx-auto`}> */}
-        <div className="container mx-auto">
+        <div className="container mx-auto lg:px-8 md:px-6 px-4">
           <div className="h-20 items-center flex ">
             <div className="grid grid-cols-1 w-full h-[48px]">
               <div className="flex items-center justify-between">
@@ -66,8 +66,8 @@ export default function HeaderDashboard() {
                   </div>
                   <div className="border border-gray-300 w-100 rounded-full px-4 py-2 cursor-pointer" onClick={handleSearch} role="button">search</div>
                 </div>
-                <div className="flex items-center gap-5">
-                  <div className="flex items-center">
+                <div className="md:flex hidden items-center gap-5">
+                  <div className="flex items-center gap-4">
                     {menuItems.map((item) => {
                       return (
                         <div
@@ -75,7 +75,7 @@ export default function HeaderDashboard() {
                           onClick={() => setActiveDesktop(item.id)}
                           className={`inline-block mx-4 ${
                             activeDesktop === item.id
-                              ? "font-bold text-blue-500"
+                              ? "font-bold primary-text"
                               : ""
                           }`}
                         >
@@ -84,11 +84,11 @@ export default function HeaderDashboard() {
                       );
                     })}
                   </div>
-                  <div className="flex items-center gap-4">
-                    <button className="border border-blue-500 font-semibold text-blue-500 rounded-full px-4 py-2 hover:bg-blue-500 hover:text-white transition duration-300">
+                  <div className="flex flex-col md:flex-row items-center gap-2 md:gap-4 mt-2 md:mt-0">
+                    <button className="border primary-border font-semibold primary-text rounded-full px-4 py-2 hover:primary hover:text-white transition duration-300">
                       Sign In
                     </button>
-                    <button className="bg-blue-500 font-semibold text-white rounded-full px-4 py-2 hover:bg-blue-600 transition duration-300 ">
+                    <button className="primary font-semibold text-white rounded-full px-4 py-2 hover:bg-blue-600 transition duration-300 ">
                       Register
                     </button>
                   </div>
