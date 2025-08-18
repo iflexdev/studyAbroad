@@ -16,6 +16,11 @@ export default function SearchLayout() {
   const [courseLevel, setCourseLevel] = useState([]);
   const [programTypes, setProgramTypes] = useState([]);
   const [filteredProgramsList, setfilteredProgramsList] = useState([]);
+  
+  const [filteredSideBarCountryList, setfilteredSideBarCountryList] = useState([]);
+  const [filteredSideBarUniversityList, setfilteredSideBarUniversityList] = useState([]);
+  const [filteredSideBarProgramsList, setfilteredSideBarProgramsList] = useState([]);
+  const [filteredSideBarCourseList, setfilteredSideBarCourseList] = useState([]);
 
   /* --------------------------- program card state -------------------------- */
   const [programCards, setProgramCards] = useState([]);
@@ -34,15 +39,19 @@ export default function SearchLayout() {
       ]);
       if (c) {
         setCountries(c.data || []);
+        setfilteredSideBarCountryList(c.data || []);
       }
       if (u) {
         setUniversities(u.data || []);
+        setfilteredSideBarUniversityList(u.data || []);
       }
       if (cl) {
         setCourseLevel(cl.data || []);
+        setfilteredSideBarCourseList(cl.data || []);
       }
       if (pt) {
         setProgramTypes(pt.data || []);
+        setfilteredSideBarProgramsList(pt.data || []);
       }
       if (pc) {
         setProgramCards(pc.data || []);
@@ -63,6 +72,14 @@ export default function SearchLayout() {
           programTypes={programTypes}
           setfilteredProgramsList={setfilteredProgramsList}
           programCards={programCards}
+          setfilteredSideBarCountryList={setfilteredSideBarCountryList}
+          filteredSideBarCountryList={filteredSideBarCountryList}
+          filteredSideBarUniversityList={filteredSideBarUniversityList}
+          setfilteredSideBarUniversityList={setfilteredSideBarUniversityList}
+          setfilteredSideBarProgramsList={setfilteredSideBarProgramsList}
+          filteredSideBarProgramsList={filteredSideBarProgramsList}
+          setfilteredSideBarCourseList={setfilteredSideBarCourseList}
+          filteredSideBarCourseList={filteredSideBarCourseList}
           />
         </div>
         <div className="w-full">

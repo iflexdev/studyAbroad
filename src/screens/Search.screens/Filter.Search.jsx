@@ -8,7 +8,15 @@ export default function Filter({
   courseLevel,
   programTypes,
   setfilteredProgramsList,
-  programCards
+  programCards,
+  setfilteredSideBarCountryList,
+  filteredSideBarCountryList,
+  filteredSideBarUniversityList,
+  setfilteredSideBarUniversityList,
+  setfilteredSideBarProgramsList,
+  filteredSideBarProgramsList,
+  setfilteredSideBarCourseList,
+  filteredSideBarCourseList
 }) {
   const filtersTitle = [
     "Countries",
@@ -21,12 +29,13 @@ export default function Filter({
   const [selectedUniversities, setSelectedUniversities] = useState([]);
   const [selectedPrograms, setSelectedPrograms] = useState([]);
   const [selectedCourseLevels, setSelectedCourseLevels] = useState([]);
+  // const [searchQueries, setSearchQueries] = useState({});
 
   const filtersData = {
-    Countries: countries,
-    Universities: universities,
-    Programs: programTypes,
-    "Course Level": courseLevel,
+    Countries: filteredSideBarCountryList,
+    Universities: filteredSideBarUniversityList,
+    Programs: filteredSideBarProgramsList,
+    "Course Level": filteredSideBarCourseList,
   };
 
   useEffect(() => {
@@ -119,6 +128,50 @@ export default function Filter({
     }
   };
 
+  // const toggleAccordionFromSearch = (title, queryLength) => {
+  //   setOpen((prev) => {
+  //     const newOpen = new Set(prev);
+  //     console.log("title... ", newOpen);
+  //     if (newOpen?.has(title) && queryLength > 0) {
+  //       return newOpen;
+  //     }
+  //     if (!newOpen?.has(title) && queryLength > 0) {
+  //       return newOpen.add(title);
+  //     }
+  //     else if (newOpen?.has(title) && queryLength == 0) {
+  //       newOpen.delete(title);
+  //     }
+  //   });
+  // };
+
+  const handleSearch = (title, query) => {
+    // toggleAccordionFromSearch(title, query.length || 0);
+    if (title == 'Countries') {
+      const filteredList = countries.filter((item) =>
+        item.name?.toLowerCase().includes(query.toLowerCase())
+      );
+      setfilteredSideBarCountryList(filteredList);
+    }
+    else if (title == 'Universities') {
+      const filteredList = universities.filter((item) =>
+        item.name?.toLowerCase().includes(query.toLowerCase())
+      );
+      setfilteredSideBarUniversityList(filteredList);
+    }
+    else if (title == 'Programs') {
+      const filteredList = programTypes.filter((item) =>
+        item.name?.toLowerCase().includes(query.toLowerCase())
+      );
+      setfilteredSideBarProgramsList(filteredList);
+    }
+    else if (title == 'Course Level') {
+      const filteredList = courseLevel.filter((item) =>
+        item.name?.toLowerCase().includes(query.toLowerCase())
+      );
+      setfilteredSideBarCourseList(filteredList);
+    }
+  };
+
 
   return (
     <>
@@ -154,6 +207,7 @@ export default function Filter({
                     type="text"
                     className="w-full border-y border-gray-300 px-1 py-1"
                     placeholder={`Search ${title}...`}
+                    onChange={(e) => handleSearch(title, e.target.value)}
                   />
                 </div>
               </div>
@@ -170,7 +224,7 @@ export default function Filter({
                           className="w-[18px] h-[18px]"
                           id={item.id}
                           value={item.id || item.name || item.title}
-                          onChange={(e) => filterPrograms(title, title === "Programs"?item.course_id:item.id, e.target.checked)}
+                          onChange={(e) => filterPrograms(title, title === "Programs" ? item.course_id : item.id, e.target.checked)}
                         />
                         <label className="text-[14px]">
                           {item.name || item.title}
