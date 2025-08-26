@@ -16,7 +16,7 @@ export default function SearchLayout() {
   const [courseLevel, setCourseLevel] = useState([]);
   const [programTypes, setProgramTypes] = useState([]);
   const [filteredProgramsList, setfilteredProgramsList] = useState([]);
-  
+
   const [filteredSideBarCountryList, setfilteredSideBarCountryList] = useState([]);
   const [filteredSideBarUniversityList, setfilteredSideBarUniversityList] = useState([]);
   const [filteredSideBarProgramsList, setfilteredSideBarProgramsList] = useState([]);
@@ -66,25 +66,27 @@ export default function SearchLayout() {
       <div className="flex flex-row gap-10 py-[22px] px-22 items-start">
         <div className="w-[340px]">
           <Filter
-          countries={countries}
-          universities={universities}
-          courseLevel={courseLevel}
-          programTypes={programTypes}
-          setfilteredProgramsList={setfilteredProgramsList}
-          programCards={programCards}
-          setfilteredSideBarCountryList={setfilteredSideBarCountryList}
-          filteredSideBarCountryList={filteredSideBarCountryList}
-          filteredSideBarUniversityList={filteredSideBarUniversityList}
-          setfilteredSideBarUniversityList={setfilteredSideBarUniversityList}
-          setfilteredSideBarProgramsList={setfilteredSideBarProgramsList}
-          filteredSideBarProgramsList={filteredSideBarProgramsList}
-          setfilteredSideBarCourseList={setfilteredSideBarCourseList}
-          filteredSideBarCourseList={filteredSideBarCourseList}
+            countriesList={countries}
+            universitiesList={universities}
+            courseLevel={courseLevel}
+            programTypes={programTypes}
+            setfilteredProgramsList={setfilteredProgramsList}
+            programCards={programCards}
+            setfilteredSideBarCountryList={setfilteredSideBarCountryList}
+            filteredSideBarCountryList={filteredSideBarCountryList}
+            filteredSideBarUniversityList={filteredSideBarUniversityList}
+            setfilteredSideBarUniversityList={setfilteredSideBarUniversityList}
+            setfilteredSideBarProgramsList={setfilteredSideBarProgramsList}
+            filteredSideBarProgramsList={filteredSideBarProgramsList}
+            setfilteredSideBarCourseList={setfilteredSideBarCourseList}
+            filteredSideBarCourseList={filteredSideBarCourseList}
+            filteredProgramsList={filteredProgramsList}
           />
         </div>
         <div className="w-full">
-          <ProgramList 
-          programCards={filteredProgramsList}
+          <ProgramList
+            programCards={filteredProgramsList}
+            setfilteredProgramsList={setfilteredProgramsList}
           />
         </div>
       </div>

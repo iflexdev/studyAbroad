@@ -4,7 +4,7 @@ export default function ProgramCard({ card }) {
   return (
     <>
     {/* h-[598px] */}
-      <div id={card.id} className="group h-[548px] border-2 p-5 rounded-2xl flex flex-col gap-y-5 justify-between hover:bg-[#F5F8FA] transform transition-all ease-linear delay-100">
+      <div id={card.id} className="group h-auto border-2 p-5 rounded-2xl flex flex-col gap-y-5 justify-between hover:bg-[#F5F8FA] transform transition-all ease-linear delay-100">
         <div className="flex flex-col gap-y-4">
           <div className="grid grid-rows-1 grid-cols-[auto_auto] justify-start items-start h-[82px] gap-x-5">
             <div className="w-[79px] h-[79px] rounded-full border overflow-hidden border-green-700 flex justify-center items-center">
@@ -34,7 +34,7 @@ export default function ProgramCard({ card }) {
         </div>
 
 
-        <div>
+        <div className="overflow-auto no-scrollbar">
           <div className="grid grid-cols-2 gap-x-10 gap-y-6 text-gray-700">
             <div>
               <p className="text-gray-400 text-[13.46px]">Location</p>
@@ -45,7 +45,7 @@ export default function ProgramCard({ card }) {
               <p className="font-medium text-base"><span id={card.city_id}>{card.city_name || "not found"}</span></p>
             </div>
             <div>
-              <p className="text-gray-400 text-[13.46px]">Tuition (1st year)</p>
+              <p className="text-gray-400 text-[13.46px]">Tuition Fees</p>
               <p className="font-medium text-base">{card.tution_fee || "not found"}</p>
             </div>
             <div>
@@ -57,7 +57,7 @@ export default function ProgramCard({ card }) {
               <p className="font-medium text-base">{card.total_duration || "not found"}</p>
             </div>
           </div>
-          <div className="">
+          {/* <div className="">
             <p className="font-medium text-[13.46px] underline text-gray-500">
               Success Prediction
             </p>
@@ -81,11 +81,12 @@ export default function ProgramCard({ card }) {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
           {/* w-[414px] */}
           <div className="h-[46px] mt-[13px]">
-            <button className="w-full group-hover:scale-[1.05] group-hover:bg-[#1f5fc7] group-hover:text-white h-full rounded-lg text-base border-gray-300 border-2 text-gray-600 bg-secondary hover:bg-[#1f5fc7] hover:text-white transform transition-all ease-in-out font-semibold">
-              Create Application
+            {/* group-hover:scale-[1.05] */}
+            <button className="w-full group-hover:bg-[#1f5fc7] group-hover:text-white h-full rounded-lg text-base border-gray-300 border-2 text-gray-600 bg-secondary hover:bg-[#1f5fc7] hover:text-white transform transition-all ease-in-out font-semibold cursor-pointer">
+              Explore Application
             </button>
           </div>
         </div>
