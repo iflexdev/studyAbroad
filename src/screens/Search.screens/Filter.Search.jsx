@@ -97,6 +97,9 @@ export default function Filter({
     })();
     setfilteredSideBarProgramsList(filteredPrograms || []);
 
+  }, [programCards]);
+
+  useEffect(() => {
     const filteredUniversities = (() => {
       if (!universitiesList?.length || !programCards?.length) return [];
       const levelCount = Object.create(null); // faster than {}
