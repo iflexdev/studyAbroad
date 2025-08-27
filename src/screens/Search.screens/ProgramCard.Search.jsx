@@ -50,7 +50,7 @@ export default function ProgramCard({ card }) {
             </div>
             <div>
               <p className="text-gray-400 text-[13.46px]">Application fee</p>
-              <p className="font-medium text-base"><span>{card.application_fees || "not found"}{" "}{card.currency || ""}</span></p>
+              <p className="font-medium text-base"><span>{card.application_fees || 0}{" "}{card.currency || ""}</span></p>
             </div>
             <div>
               <p className="text-gray-400 text-[13.46px]">Duration</p>
@@ -86,7 +86,7 @@ export default function ProgramCard({ card }) {
           <div className="h-[46px] mt-[13px]">
             {/* group-hover:scale-[1.05] */}
             <button className="w-full group-hover:bg-[#1f5fc7] group-hover:text-white h-full rounded-lg text-base border-gray-300 border-2 text-gray-600 bg-secondary hover:bg-[#1f5fc7] hover:text-white transform transition-all ease-in-out font-semibold cursor-pointer">
-              Explore Application
+              Explore Programs
             </button>
           </div>
         </div>

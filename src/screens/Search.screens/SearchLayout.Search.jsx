@@ -16,6 +16,7 @@ export default function SearchLayout() {
   const [courseLevel, setCourseLevel] = useState([]);
   const [programTypes, setProgramTypes] = useState([]);
   const [filteredProgramsList, setfilteredProgramsList] = useState([]);
+  const [filteredProgramsByBudget, setfilteredProgramsByBudget] = useState([]);
 
   const [filteredSideBarCountryList, setfilteredSideBarCountryList] = useState([]);
   const [filteredSideBarUniversityList, setfilteredSideBarUniversityList] = useState([]);
@@ -55,7 +56,8 @@ export default function SearchLayout() {
       }
       if (pc) {
         setProgramCards(pc.data || []);
-        setfilteredProgramsList(pc.data || [])
+        setfilteredProgramsList(pc.data || []);
+        setfilteredProgramsByBudget(pc.data || []);
       }
     };
     fetchAllData();
@@ -81,11 +83,13 @@ export default function SearchLayout() {
             setfilteredSideBarCourseList={setfilteredSideBarCourseList}
             filteredSideBarCourseList={filteredSideBarCourseList}
             filteredProgramsList={filteredProgramsList}
+            setfilteredProgramsByBudget={setfilteredProgramsByBudget}
+            filteredProgramsByBudget={filteredProgramsByBudget}
           />
         </div>
         <div className="w-full">
           <ProgramList
-            programCards={filteredProgramsList}
+            programCards={filteredProgramsByBudget}
             setfilteredProgramsList={setfilteredProgramsList}
           />
         </div>
