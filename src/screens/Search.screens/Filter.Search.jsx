@@ -23,9 +23,10 @@ export default function Filter({
 }) {
 
   const applicationFeesSorted = programCards
-    .map(item => Number(item.application_fees)) // convert to number
+    .map(item => Number(item.tution_fee)) // convert to number
     .filter(fee => !isNaN(fee))                 // remove null or invalid
-    .sort((a, b) => a - b);                     // sort ascending
+    .sort((a, b) => a - b);
+
 
   const filtersTitle = [
     "Countries",
@@ -66,14 +67,14 @@ export default function Filter({
     const filteredCourseLevel = (() => {
       if (!courseLevel?.length || !programCards?.length) return [];
       const levelCount = Object.create(null); // faster than {}
-      for (const { study_levels } of programCards) {
-        if (study_levels) {
-          levelCount[study_levels] = (levelCount[study_levels] || 0) + 1;
+      for (const { study_levels_id } of programCards) {
+        if (study_levels_id) {
+          levelCount[study_levels_id] = (levelCount[study_levels_id] || 0) + 1;
         }
       }
       const result = [];
       for (const item of courseLevel) {
-        const count = levelCount[item.title];
+        const count = levelCount[item.id];
         result.push({ ...item, count });
       }
       return result;
@@ -83,34 +84,33 @@ export default function Filter({
     const filteredPrograms = (() => {
       if (!programTypes?.length || !programCards?.length) return [];
       const levelCount = Object.create(null); // faster than {}
-      for (const { program_name } of programCards) {
-        if (program_name) {
-          levelCount[program_name] = (levelCount[program_name] || 0) + 1;
+      for (const { program_id } of programCards) {
+        if (program_id) {
+          levelCount[program_id] = (levelCount[program_id] || 0) + 1;
         }
       }
       const result = [];
       for (const item of programTypes) {
-        const count = levelCount[item.title];
+        const count = levelCount[item.course_id];
         result.push({ ...item, count });
       }
       return result;
     })();
     setfilteredSideBarProgramsList(filteredPrograms || []);
-
   }, [programCards]);
 
   useEffect(() => {
     const filteredUniversities = (() => {
       if (!universitiesList?.length || !programCards?.length) return [];
       const levelCount = Object.create(null); // faster than {}
-      for (const { university_name } of programCards) {
-        if (university_name) {
-          levelCount[university_name] = (levelCount[university_name] || 0) + 1;
+      for (const { university_id } of programCards) {
+        if (university_id) {
+          levelCount[university_id] = (levelCount[university_id] || 0) + 1;
         }
       }
       const result = [];
       for (const item of universitiesList) {
-        const count = levelCount[item.name];
+        const count = levelCount[item.id];
         result.push({ ...item, count });
       }
       return result;
@@ -143,7 +143,7 @@ export default function Filter({
     }
 
     const filtered = filteredProgramsList.filter((item) => {
-      const fee = Number(item.application_fees);
+      const fee = Number(item.tution_fee);
       return selectedRanges.some(({ min, max }) => fee >= min && fee <= max);
     });
 
@@ -256,14 +256,14 @@ export default function Filter({
           const filteredUniversities = (() => {
             if (!universitiesList?.length || !filteredData?.length) return [];
             const levelCount = Object.create(null); // faster than {}
-            for (const { university_name } of filteredData) {
-              if (university_name) {
-                levelCount[university_name] = (levelCount[university_name] || 0) + 1;
+            for (const { university_id } of filteredData) {
+              if (university_id) {
+                levelCount[university_id] = (levelCount[university_id] || 0) + 1;
               }
             }
             const result = [];
             for (const item of universitiesList) {
-              const count = levelCount[item.name];
+              const count = levelCount[item.id];
               if (count) result.push({ ...item, count });
             }
             return result;
@@ -280,14 +280,14 @@ export default function Filter({
           const filteredCourseLevel = (() => {
             if (!courseLevel?.length || !filteredData?.length) return [];
             const levelCount = Object.create(null); // faster than {}
-            for (const { study_levels } of filteredData) {
-              if (study_levels) {
-                levelCount[study_levels] = (levelCount[study_levels] || 0) + 1;
+            for (const { study_levels_id } of filteredData) {
+              if (study_levels_id) {
+                levelCount[study_levels_id] = (levelCount[study_levels_id] || 0) + 1;
               }
             }
             const result = [];
             for (const item of courseLevel) {
-              const count = levelCount[item.title];
+              const count = levelCount[item.id];
               if (count) result.push({ ...item, count });
             }
             return result;
@@ -303,14 +303,14 @@ export default function Filter({
           const filteredPrograms = (() => {
             if (!programTypes?.length || !filteredData?.length) return [];
             const levelCount = Object.create(null); // faster than {}
-            for (const { program_name } of filteredData) {
-              if (program_name) {
-                levelCount[program_name] = (levelCount[program_name] || 0) + 1;
+            for (const { program_id } of filteredData) {
+              if (program_id) {
+                levelCount[program_id] = (levelCount[program_id] || 0) + 1;
               }
             }
             const result = [];
             for (const item of programTypes) {
-              const count = levelCount[item.title];
+              const count = levelCount[item.course_id];
               if (count) result.push({ ...item, count });
             }
             return result;
@@ -328,14 +328,14 @@ export default function Filter({
           const filteredUniversities = (() => {
             if (!universitiesList?.length || !filteredData?.length) return [];
             const levelCount = Object.create(null); // faster than {}
-            for (const { university_name } of filteredData) {
-              if (university_name) {
-                levelCount[university_name] = (levelCount[university_name] || 0) + 1;
+            for (const { university_id } of filteredData) {
+              if (university_id) {
+                levelCount[university_id] = (levelCount[university_id] || 0) + 1;
               }
             }
             const result = [];
             for (const item of universitiesList) {
-              const count = levelCount[item.name];
+              const count = levelCount[item.id];
               if (count) result.push({ ...item, count });
             }
             return result;
@@ -345,14 +345,14 @@ export default function Filter({
           const filteredPrograms = (() => {
             if (!programTypes?.length || !filteredData?.length) return [];
             const levelCount = Object.create(null); // faster than {}
-            for (const { program_name } of filteredData) {
-              if (program_name) {
-                levelCount[program_name] = (levelCount[program_name] || 0) + 1;
+            for (const { program_id } of filteredData) {
+              if (program_id) {
+                levelCount[program_id] = (levelCount[program_id] || 0) + 1;
               }
             }
             const result = [];
             for (const item of programTypes) {
-              const count = levelCount[item.title];
+              const count = levelCount[item.course_id];
               if (count) result.push({ ...item, count });
             }
             return result;
@@ -368,14 +368,14 @@ export default function Filter({
           const filteredUniversities = (() => {
             if (!universitiesList?.length || !filteredData?.length) return [];
             const levelCount = Object.create(null); // faster than {}
-            for (const { university_name } of filteredData) {
-              if (university_name) {
-                levelCount[university_name] = (levelCount[university_name] || 0) + 1;
+            for (const { university_id } of filteredData) {
+              if (university_id) {
+                levelCount[university_id] = (levelCount[university_id] || 0) + 1;
               }
             }
             const result = [];
             for (const item of universitiesList) {
-              const count = levelCount[item.name];
+              const count = levelCount[item.id];
               if (count) result.push({ ...item, count });
             }
             return result;
@@ -535,7 +535,6 @@ export default function Filter({
                           onChange={(e) => {
                             filterPrograms(
                               title,
-                              // item,
                               title === "Programs" ? item.course_id : item.id,
                               e.target.checked
                             )
@@ -543,7 +542,7 @@ export default function Filter({
                           }
                         />
                         <label
-                          htmlFor={title + '_' + item.id}
+                          htmlFor={title === "Programs" ? title + '_' + item.course_id : title + '_' + item.id}
                           className="text-[14px] cursor-pointer"
                         >
                           {item.name || item.title}
@@ -560,12 +559,22 @@ export default function Filter({
 
                   {title === 'Budget' && (() => {
                     // collect ranges from items
-                    const ranges = (filtersData[title] || []).map((item) => {
-                      const bucket = Math.floor(item / 200);      // 0, 1, 2, ...
-                      const rangeStart = bucket * 200 + (bucket === 0 ? 0 : 1); // 0, 201, 401...
-                      const rangeEnd = (bucket + 1) * 200;        // 200, 400, 600...
-                      return `${rangeStart}-${rangeEnd}`;
-                    });
+                    // const ranges = (filtersData[title] || []).map((item) => {
+                    //   const bucket = Math.floor(item / 1000);
+                    //   const rangeStart = bucket * 1000 + (bucket === 0 ? 0 : 1);
+                    //   const rangeEnd = (bucket + 1) * 1000;
+                    //   return `${rangeStart}-${rangeEnd}`;
+                    // });
+
+                    const values = (filtersData[title] || []).filter(v => v > 0).sort((a, b) => a - b);
+                    const ranges = [];
+                    const step = 3; // "four index ahead" → group of 5
+
+                    for (let i = 0; i < values.length; i += step + 1) {
+                      const start = values[i];
+                      const end = values[Math.min(i + step, values.length - 1)];
+                      ranges.push(`${start}-${end}`);
+                    }
 
                     // make ranges unique
                     const uniqueRanges = [...new Set(ranges)];
