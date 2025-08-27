@@ -5,7 +5,7 @@ const axiosInstance = axios.create({
   /*                                API base URL                                */
   /* -------------------------------------------------------------------------- */
   // baseURL: "https://novuspro.co.in/study-abroad/public/api/v1/",
-  baseURL: "http://admin-sa.iflextech.co/api/v1/",
+  baseURL: "https://admin-sa.iflextech.co/api/v1/",
 });
 
 /* -------------------------------------------------------------------------- */
