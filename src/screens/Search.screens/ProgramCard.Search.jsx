@@ -75,6 +75,7 @@ export default function ProgramCard({ card }) {
   }, [card])
 
   const navigate = useNavigate();
+
   return (
     <>
       {/* h-[598px] */}
@@ -164,7 +165,6 @@ export default function ProgramCard({ card }) {
             </div>}
           {/* w-[414px] */}
           <div className="h-[46px] mt-[13px]">
-            {/* group-hover:scale-[1.05] */}
             <button className="w-full group-hover:bg-[#1f5fc7] group-hover:text-white h-full rounded-lg text-base border-gray-300 border-2 text-gray-600 bg-secondary hover:bg-[#1f5fc7] hover:text-white transform transition-all ease-in-out font-semibold cursor-pointer" onClick={() => navigate("../program-detail")}>
               Explore Programs
             </button>
