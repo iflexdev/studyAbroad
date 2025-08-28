@@ -22,6 +22,9 @@ export default function SearchLayout() {
   const [filteredSideBarUniversityList, setfilteredSideBarUniversityList] = useState([]);
   const [filteredSideBarProgramsList, setfilteredSideBarProgramsList] = useState([]);
   const [filteredSideBarCourseList, setfilteredSideBarCourseList] = useState([]);
+  const [selectedUniqueID, setSelectedUniqueID] = useState([]);
+  const [selectedFilterItem, setSelectedFilterItem] = useState([]);
+  const [callFilterFunction, setCallFilterFunction] = useState();
 
   /* --------------------------- program card state -------------------------- */
   const [programCards, setProgramCards] = useState([]);
@@ -85,12 +88,18 @@ export default function SearchLayout() {
             filteredProgramsList={filteredProgramsList}
             setfilteredProgramsByBudget={setfilteredProgramsByBudget}
             filteredProgramsByBudget={filteredProgramsByBudget}
+            setSelectedUniqueID={setSelectedUniqueID}
+            selectedUniqueID={selectedUniqueID}
+            setSelectedFilterItem={setSelectedFilterItem}
+            callFilterFunction={callFilterFunction}
           />
         </div>
         <div className="w-full">
           <ProgramList
             programCards={filteredProgramsByBudget}
             setfilteredProgramsList={setfilteredProgramsList}
+            selectedFilterItem={selectedFilterItem}
+            setCallFilterFunction={setCallFilterFunction}
           />
         </div>
       </div>
