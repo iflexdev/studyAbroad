@@ -1,5 +1,5 @@
-// import axiosInstance from "./AxiosInstance.api"
-import axiosPublicInstance from "./AxiosPublicInstance.api";
+import axiosInstance from "./AxiosInstance.api"
+// import axiosPublicInstance from "./AxiosPublicInstance.api";
 
 /* -------------------------------------------------------------------------- */
 /*                         all Search programs filter                         */
@@ -8,13 +8,13 @@ import axiosPublicInstance from "./AxiosPublicInstance.api";
 //
 //
 /* --------------------- fetch all countries GET request -------------------- */
-export const countryList = () => axiosPublicInstance.get("country-list");
+export const countryList = () => axiosInstance.get("country-list");
 /* --------------------- fetch all universities GET request -------------------- */
-export const universityList = () => axiosPublicInstance.get("university-list");
+export const universityList = () => axiosInstance.get("university-list");
 /* --------------------- fetch all course level GET request -------------------- */
-export const courseLevel = () => axiosPublicInstance.get("course-level-list");
+export const courseLevel = () => axiosInstance.get("course-level-list");
 /* --------------------- fetch all programs GET request -------------------- */
-export const programsList = () => axiosPublicInstance.get("program-list");
+export const programsList = () => axiosInstance.get("program-list");
 
 // 
 // 
@@ -25,4 +25,4 @@ export const programsList = () => axiosPublicInstance.get("program-list");
 // 
 
 /* --------------------- fetch all programs GET request -------------------- */
-export const programsCardData = () => axiosPublicInstance.get("all-programs ");
+export const programsCardData = () => axiosInstance.get("all-programs ");
