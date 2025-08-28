@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-// import { filters } from "./filter";
 import { ChevronDown } from "lucide-react";
 
 export default function Filter({
@@ -19,12 +18,16 @@ export default function Filter({
   filteredSideBarCourseList,
   filteredProgramsList,
   setfilteredProgramsByBudget,
-  filteredProgramsByBudget
+  filteredProgramsByBudget,
+  setSelectedUniqueID,
+  selectedUniqueID,
+  setSelectedFilterItem,
+  callFilterFunction
 }) {
 
   const applicationFeesSorted = programCards
     .map(item => Number(item.tution_fee)) // convert to number
-    .filter(fee => !isNaN(fee))                 // remove null or invalid
+    .filter(fee => !isNaN(fee))           // remove null or invalid
     .sort((a, b) => a - b);
 
 
@@ -41,9 +44,7 @@ export default function Filter({
   const [selectedUniversities, setSelectedUniversities] = useState([]);
   const [selectedPrograms, setSelectedPrograms] = useState([]);
   const [selectedCourseLevels, setSelectedCourseLevels] = useState([]);
-  const [selectedUniqueID, setSelectedUniqueID] = useState([]);
   const [selectedRanges, setSelectedRanges] = useState([]);
-  const [isCheckBoxSelected, setisCheckBoxSelected] = useState(false);
   // const [searchQueries, setSearchQueries] = useState({});
 
   const filtersData = {
@@ -54,14 +55,11 @@ export default function Filter({
     Budget: applicationFeesSorted
   };
 
-  useEffect(() => {
-    if (selectedUniqueID?.length > 0) {
-      setisCheckBoxSelected(true);
+  useEffect(()=>{
+    if(callFilterFunction){
+      filterPrograms(callFilterFunction?.label, callFilterFunction?.id, callFilterFunction?.isChecked, callFilterFunction?.item);
     }
-    if (selectedUniqueID?.length === 0) {
-      setisCheckBoxSelected(false);
-    }
-  }, [selectedUniqueID]);
+  },[callFilterFunction]);
 
   useEffect(() => {
     const filteredCourseLevel = (() => {
@@ -80,7 +78,9 @@ export default function Filter({
       return result;
     })();
     setfilteredSideBarCourseList(filteredCourseLevel || []);
+  }, [programCards]);
 
+  useEffect(() => {
     const filteredPrograms = (() => {
       if (!programTypes?.length || !programCards?.length) return [];
       const levelCount = Object.create(null); // faster than {}
@@ -182,16 +182,27 @@ export default function Filter({
   /* -------------------------------------------------------------------------- */
   /*                filter the programs according to the side bar               */
   /* -------------------------------------------------------------------------- */
-  const filterPrograms = (title, id, isChecked) => {
+  const filterPrograms = (title, id, isChecked, item) => {
     const uniqueId = title + '_' + id;
+    const filterItem = {
+      ...item,
+      filterTitle: title,
+      uniqueFilterId: title + '_' + id
+    }
     if (isChecked) {
       setSelectedUniqueID((prev) => {
         return [...prev, uniqueId];
+      });
+      setSelectedFilterItem((prev) => {
+        return [...prev, filterItem];
       });
     }
     else {
       setSelectedUniqueID((prev) => {
         return prev.filter((item) => item !== uniqueId);
+      });
+      setSelectedFilterItem((prev) => {
+        return prev.filter((data) => data?.uniqueFilterId !== filterItem?.uniqueFilterId);
       });
     }
 
@@ -300,6 +311,7 @@ export default function Filter({
           //   return programTypes.filter(item => programTypesIds.has(item?.course_id));
           // })();
           // setfilteredSideBarProgramsList(filteredPrograms || []);
+          
           const filteredPrograms = (() => {
             if (!programTypes?.length || !filteredData?.length) return [];
             const levelCount = Object.create(null); // faster than {}
@@ -529,14 +541,15 @@ export default function Filter({
                         <input
                           type="checkbox"
                           className="w-[18px] h-[18px]"
-                          id={title + '_' + item.id}
+                          id={title === "Programs" ? title + '_' + item.course_id : title + '_' + item.id}
                           value={item.name || item.title}
                           checked={selectedUniqueID?.includes(title === "Programs" ? title + '_' + item.course_id : title + '_' + item.id)}
                           onChange={(e) => {
                             filterPrograms(
                               title,
                               title === "Programs" ? item.course_id : item.id,
-                              e.target.checked
+                              e.target.checked,
+                              item
                             )
                           }
                           }
