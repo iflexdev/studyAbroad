@@ -55,11 +55,11 @@ export default function Filter({
     Budget: applicationFeesSorted
   };
 
-  useEffect(()=>{
-    if(callFilterFunction){
+  useEffect(() => {
+    if (callFilterFunction) {
       filterPrograms(callFilterFunction?.label, callFilterFunction?.id, callFilterFunction?.isChecked, callFilterFunction?.item);
     }
-  },[callFilterFunction]);
+  }, [callFilterFunction]);
 
   useEffect(() => {
     const filteredCourseLevel = (() => {
@@ -151,9 +151,9 @@ export default function Filter({
   }, [selectedRanges]);
 
   // Whenever selectedRanges changes, filter programs
-  useEffect(() => {
-    setfilteredProgramsByBudget(filteredProgramsList);
-  }, [filteredProgramsList]);
+  // useEffect(() => {
+  //   setfilteredProgramsByBudget(filteredProgramsList);
+  // }, [filteredProgramsList]);
 
 
   const toggleAccordion = (title) => {
@@ -206,21 +206,161 @@ export default function Filter({
       });
     }
 
-    // setSelectedUniqueID((prev) => {
-    //   if (prev.includes(uniqueId)) {
-    //     return prev.filter((item) => item !== uniqueId);
-    //   } else if (!prev.includes(uniqueId)) {
-    //     return [...prev, uniqueId];
-    //   }
-    // });
-
     const applyFilters = (countries, universities, programs, courseLevels) => {
-      let filteredData = selectedRanges.length > 0 ? filteredProgramsByBudget : programCards;
+      let filteredData = programCards;
 
       if (countries.length > 0) {
+
         filteredData = filteredData.filter((data) =>
           countries.includes(data?.country_id)
         );
+
+        const filteredCourseLevel = (() => {
+          if (!courseLevel?.length || !filteredData?.length) return [];
+          const levelCount = filteredData?.map((item) => {
+            return item?.study_levels_id;
+          })
+          let result = [];
+          for (const item of courseLevel) {
+            if (levelCount?.includes(item.id)) {
+              const count = levelCount.filter(id => id === item.id).length;
+
+              result.push({
+                ...item,
+                count
+              });
+            }
+          }
+          return result;
+        })();
+        setfilteredSideBarCourseList(filteredCourseLevel || []);
+
+
+        const filteredPrograms = (() => {
+          if (!programTypes?.length || !filteredData?.length) return [];
+          const levelCount = filteredData?.map((item) => {
+            if (countries?.includes(item?.country_id)) {
+              return item?.program_id
+            }
+          })
+
+          let result = [];
+          for (const item of programTypes) {
+            if (levelCount?.includes(item.course_id)) {
+              const count = levelCount.filter(id => id === item.course_id).length;
+
+              result.push({
+                ...item,
+                count
+              });
+            }
+          }
+          return result;
+        })();
+        setfilteredSideBarProgramsList(filteredPrograms || []);
+
+        const filteredUniversities = (() => {
+          if (!universitiesList?.length || !filteredData?.length) return [];
+          const levelCount = filteredData?.map((item) => {
+            if (countries?.includes(item?.country_id)) {
+              return item?.university_id
+            }
+          })
+          let result = [];
+          for (const item of universitiesList) {
+            if (levelCount?.includes(item.id)) {
+              const count = levelCount.filter(id => id === item.id).length;
+
+              result.push({
+                ...item,
+                count
+              });
+            }
+          }
+          return result;
+
+        })();
+        setfilteredSideBarUniversityList(filteredUniversities || []);
+      }
+      else {
+        setfilteredSideBarCourseList(courseLevel || []);
+        setfilteredSideBarProgramsList(programTypes || []);
+        setfilteredSideBarUniversityList(universitiesList || []);
+      }
+
+      if (courseLevels.length > 0) {
+        filteredData = filteredData.filter((data) =>
+          courseLevels.includes(data?.study_levels_id)
+        );
+
+        const filteredPrograms = (() => {
+          if (!programTypes?.length || !filteredData?.length) return [];
+          const levelCount = filteredData?.map((item) => {
+            return item?.program_id;
+          })
+
+          let result = [];
+          for (const item of programTypes) {
+            if (levelCount?.includes(item.course_id)) {
+              const count = levelCount.filter(id => id === item.course_id).length;
+
+              result.push({
+                ...item,
+                count
+              });
+            }
+          }
+          return result;
+        })();
+        setfilteredSideBarProgramsList(filteredPrograms || []);
+
+        const filteredUniversities = (() => {
+          if (!universitiesList?.length || !filteredData?.length) return [];
+          const levelCount = filteredData?.map((item) => {
+            return item?.university_id;
+          })
+          let result = [];
+          for (const item of universitiesList) {
+            if (levelCount?.includes(item.id)) {
+              const count = levelCount.filter(id => id === item.id).length;
+
+              result.push({
+                ...item,
+                count
+              });
+            }
+          }
+          return result;
+
+        })();
+        setfilteredSideBarUniversityList(filteredUniversities || []);
+      }
+
+      if (programs.length > 0) {
+        filteredData = filteredData.filter((data) =>
+          programs.includes(data?.program_id)
+        );
+
+        const filteredUniversities = (() => {
+          if (!universitiesList?.length || !filteredData?.length) return [];
+          const levelCount = filteredData?.map((item) => {
+            return item?.university_id;
+          })
+          let result = [];
+          for (const item of universitiesList) {
+            if (levelCount?.includes(item.id)) {
+              const count = levelCount.filter(id => id === item.id).length;
+
+              result.push({
+                ...item,
+                count
+              });
+            }
+          }
+          return result;
+
+        })();
+        setfilteredSideBarUniversityList(filteredUniversities || []);
       }
 
       if (universities.length > 0) {
@@ -229,17 +369,23 @@ export default function Filter({
         );
       }
 
-      if (programs.length > 0) {
-        filteredData = filteredData.filter((data) =>
-          programs.includes(data?.program_id)
-        );
-      }
-
-      if (courseLevels.length > 0) {
-        filteredData = filteredData.filter((data) =>
-          courseLevels.includes(data?.study_levels_id)
-        );
-      }
+      // if (selectedRanges?.length > 0) {
+      //   const filtered = filteredData.filter((item) => {
+      //     const fee = Number(item.tution_fee);
+      //     return selectedRanges.some(({ min, max }) => fee >= min && fee <= max);
+      //   });
+      //   setfilteredProgramsByBudget(filtered);
+      // }
+      // else {
+      //   setfilteredProgramsList(
+      //     countries.length > 0 ||
+      //       universities.length > 0 ||
+      //       programs.length > 0 ||
+      //       courseLevels.length > 0
+      //       ? filteredData || []
+      //       : programCards
+      //   );
+      // }
 
       setfilteredProgramsList(
         countries.length > 0 ||
@@ -250,151 +396,22 @@ export default function Filter({
           : programCards
       );
 
-      if (title == 'Countries') {
-        if (programCards.length == filteredData?.length) {
-          setfilteredSideBarUniversityList(universitiesList || []);
-          setfilteredSideBarCourseList(courseLevel || []);
-          setfilteredSideBarProgramsList(programTypes || []);
-        }
-        else {
-          // const filteredUniversities = (() => {
-          //   if (!universitiesList || !filteredData) return [];
-          //   const universityIds = new Set(filteredData.map(data => data?.university_id));
-
-          //   return universitiesList.filter(item => universityIds.has(item?.id));
-          // })();
-          // setfilteredSideBarUniversityList(filteredUniversities || []);
-          const filteredUniversities = (() => {
-            if (!universitiesList?.length || !filteredData?.length) return [];
-            const levelCount = Object.create(null); // faster than {}
-            for (const { university_id } of filteredData) {
-              if (university_id) {
-                levelCount[university_id] = (levelCount[university_id] || 0) + 1;
-              }
-            }
-            const result = [];
-            for (const item of universitiesList) {
-              const count = levelCount[item.id];
-              if (count) result.push({ ...item, count });
-            }
-            return result;
-          })();
-          setfilteredSideBarUniversityList(filteredUniversities || []);
-
-          // const filteredCourseLevel = (() => {
-          //   if (!courseLevel || !filteredData) return [];
-          //   const course_levels_id = new Set(filteredData.map(data => data?.study_levels_id));
-          //   return courseLevel.filter(item => course_levels_id.has(item?.id));
-          // })();
-          // setfilteredSideBarCourseList(filteredCourseLevel || []);
-
-          const filteredCourseLevel = (() => {
-            if (!courseLevel?.length || !filteredData?.length) return [];
-            const levelCount = Object.create(null); // faster than {}
-            for (const { study_levels_id } of filteredData) {
-              if (study_levels_id) {
-                levelCount[study_levels_id] = (levelCount[study_levels_id] || 0) + 1;
-              }
-            }
-            const result = [];
-            for (const item of courseLevel) {
-              const count = levelCount[item.id];
-              if (count) result.push({ ...item, count });
-            }
-            return result;
-          })();
-          setfilteredSideBarCourseList(filteredCourseLevel || []);
-
-          // const filteredPrograms = (() => {
-          //   if (!programTypes || !filteredData) return [];
-          //   const programTypesIds = new Set(filteredData.map(data => data?.program_id));
-          //   return programTypes.filter(item => programTypesIds.has(item?.course_id));
-          // })();
-          // setfilteredSideBarProgramsList(filteredPrograms || []);
-          
-          const filteredPrograms = (() => {
-            if (!programTypes?.length || !filteredData?.length) return [];
-            const levelCount = Object.create(null); // faster than {}
-            for (const { program_id } of filteredData) {
-              if (program_id) {
-                levelCount[program_id] = (levelCount[program_id] || 0) + 1;
-              }
-            }
-            const result = [];
-            for (const item of programTypes) {
-              const count = levelCount[item.course_id];
-              if (count) result.push({ ...item, count });
-            }
-            return result;
-          })();
-          setfilteredSideBarProgramsList(filteredPrograms || []);
-
-        }
+      if (selectedRanges?.length > 0) {
+        const filtered = filteredData.filter((item) => {
+          const fee = Number(item.tution_fee);
+          return selectedRanges.some(({ min, max }) => fee >= min && fee <= max);
+        });
+        setfilteredProgramsByBudget(filtered);
       }
-      else if (title == 'Course Level') {
-        if (programCards.length == filteredData?.length) {
-          setfilteredSideBarUniversityList(universitiesList || []);
-          setfilteredSideBarProgramsList(programTypes || []);
-        }
-        else {
-          const filteredUniversities = (() => {
-            if (!universitiesList?.length || !filteredData?.length) return [];
-            const levelCount = Object.create(null); // faster than {}
-            for (const { university_id } of filteredData) {
-              if (university_id) {
-                levelCount[university_id] = (levelCount[university_id] || 0) + 1;
-              }
-            }
-            const result = [];
-            for (const item of universitiesList) {
-              const count = levelCount[item.id];
-              if (count) result.push({ ...item, count });
-            }
-            return result;
-          })();
-          setfilteredSideBarUniversityList(filteredUniversities || []);
+      else {
+        setfilteredProgramsByBudget(countries.length > 0 ||
+          universities.length > 0 ||
+          programs.length > 0 ||
+          courseLevels.length > 0
+          ? filteredData || []
+          : programCards);
+      }
 
-          const filteredPrograms = (() => {
-            if (!programTypes?.length || !filteredData?.length) return [];
-            const levelCount = Object.create(null); // faster than {}
-            for (const { program_id } of filteredData) {
-              if (program_id) {
-                levelCount[program_id] = (levelCount[program_id] || 0) + 1;
-              }
-            }
-            const result = [];
-            for (const item of programTypes) {
-              const count = levelCount[item.course_id];
-              if (count) result.push({ ...item, count });
-            }
-            return result;
-          })();
-          setfilteredSideBarProgramsList(filteredPrograms);
-        }
-      }
-      else if (title == 'Programs') {
-        if (programCards.length == filteredData?.length) {
-          setfilteredSideBarUniversityList(universitiesList || []);
-        }
-        else {
-          const filteredUniversities = (() => {
-            if (!universitiesList?.length || !filteredData?.length) return [];
-            const levelCount = Object.create(null); // faster than {}
-            for (const { university_id } of filteredData) {
-              if (university_id) {
-                levelCount[university_id] = (levelCount[university_id] || 0) + 1;
-              }
-            }
-            const result = [];
-            for (const item of universitiesList) {
-              const count = levelCount[item.id];
-              if (count) result.push({ ...item, count });
-            }
-            return result;
-          })();
-          setfilteredSideBarUniversityList(filteredUniversities || []);
-        }
-      }
     };
 
     if (title === "Countries") {
@@ -403,7 +420,6 @@ export default function Filter({
         applyFilters(updated, selectedUniversities, selectedPrograms, selectedCourseLevels);
         return updated;
       });
-
       // const updated = isChecked ? [...selectedCountries, id] : selectedCountries.filter((c) => c !== id);
 
     }
@@ -461,7 +477,6 @@ export default function Filter({
       setfilteredSideBarCourseList(filteredList);
     }
   };
-
 
   function filterBudget(range, checked) {
     const [min, max] = range.split("-").map(Number);
@@ -571,17 +586,9 @@ export default function Filter({
                   ))}
 
                   {title === 'Budget' && (() => {
-                    // collect ranges from items
-                    // const ranges = (filtersData[title] || []).map((item) => {
-                    //   const bucket = Math.floor(item / 1000);
-                    //   const rangeStart = bucket * 1000 + (bucket === 0 ? 0 : 1);
-                    //   const rangeEnd = (bucket + 1) * 1000;
-                    //   return `${rangeStart}-${rangeEnd}`;
-                    // });
-
-                    const values = (filtersData[title] || []).filter(v => v > 0).sort((a, b) => a - b);
+                    const values = [...new Set(filtersData[title] || [])].sort((a, b) => a - b);
                     const ranges = [];
-                    const step = 3; // "four index ahead" → group of 5
+                    const step = 2; // "four index ahead" → group of 5
 
                     for (let i = 0; i < values.length; i += step + 1) {
                       const start = values[i];
