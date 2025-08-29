@@ -67,6 +67,16 @@ export const SvgIcons = {
   phone: "phone-call.svg",
   key: "key.svg",
   dotsLoading: "dots-loading.svg",
+  /* -------------------------------- new logo -------------------------------- */
+  price: "price.svg",
+  hut: "hut.svg",
+  facebook: "facebook.svg",
+  twitter: "twitter.svg",
+  whatsapp: "whatsapp.svg",
+  copy: "copy.svg",
+  mailOutline: "mail-outline.svg",
+  clockHours: "clock-hours.svg",
+  bar: "bar.svg",
 };
 
 /* -------------------------------------------------------------------------- */

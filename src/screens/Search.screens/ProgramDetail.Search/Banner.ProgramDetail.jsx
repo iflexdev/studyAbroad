@@ -4,7 +4,7 @@ import { CalendarDays, MapPin, Star, UsersRound } from "lucide-react";
 export default function Banner() {
   return (
     <>
-      <div className="bg-[#F2F6FD]">
+      <div className="programDetailsBannerBG">
         <div className="flex flex-col gap-[34px] py-[34px] px-[148px]">
           <div className="grid grid-cols-[1fr_auto]">
             <div className="grid grid-cols-[auto_1fr] gap-[30px]">
@@ -53,13 +53,13 @@ export default function Banner() {
               Apply Now
             </button>
           </div>
-          <div className="grid grid-cols-[auto_auto_auto] gap-[20px]">
+          <div className="grid grid-cols-[auto_auto_auto] gap-x-[16px]">
             <div className="w-[733px] row-span-1 border h-[400px]">first</div>
-            <div className="row-span-2 w-[364px] flex flex-col gap-[16px]">
+            <div className="row-span-2 w-[364px] flex flex-col gap-y-[16px]">
               <div className="h-[192px] border">second</div>
-              <div className="h-[192px] border">second</div>
+              <div className="h-[192px] border">third</div>
             </div>
-            <div className="row-span-1 w-[487px] border h-[400px]">first</div>
+            <div className="row-span-1 w-[487px] border h-[400px]">forth</div>
           </div>
         </div>
       </div>
