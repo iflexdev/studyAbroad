@@ -48,6 +48,7 @@
   --color-primary: #1f5fc7;
   --color-FilterHeaderBg: #eef4ff;
   --color-programCardBg: #f5f8fa;
+  --color-programDetailsBannerBG: #F2F6FD;
 }
 
 .primary {
@@ -68,4 +69,7 @@
 }
 .programCardBg {
   background-color: var(--color-programCardBg);
+}
+.programDetailsBannerBG{
+  background-color : var(--color-programDetailsBannerBG)
 }

@@ -53,8 +53,7 @@ export default function HeaderDashboard() {
     <>
       {/* desktop */}
       <div className="fixed top-0 left-0 z-50 w-full shadow-md bg-white/80 backdrop-blur-md">
-        {/* <div className={`w-full lg:px-8 md:px-6 px-4 mx-auto`}> */}
-        <div className="container mx-auto lg:px-8 md:px-6 px-4">
+        <div className={`mx-auto lg:px-[70px]`}>
           <div className="h-20 items-center flex ">
             <div className="grid grid-cols-1 w-full h-[48px]">
               <div className="flex items-center justify-between">
