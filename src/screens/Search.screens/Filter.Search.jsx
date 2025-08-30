@@ -61,6 +61,10 @@ export default function Filter({
     }
   }, [callFilterFunction]);
 
+
+  /* -------------------------------------------------------------------------- */
+  /*          updating counts value of study level in side filter list          */
+  /* -------------------------------------------------------------------------- */
   useEffect(() => {
     const filteredCourseLevel = (() => {
       if (!courseLevel?.length || !programCards?.length) return [];
@@ -80,6 +84,10 @@ export default function Filter({
     setfilteredSideBarCourseList(filteredCourseLevel || []);
   }, [programCards]);
 
+  
+  /* -------------------------------------------------------------------------- */
+  /*          updating counts value of programs in side filter list             */
+  /* -------------------------------------------------------------------------- */
   useEffect(() => {
     const filteredPrograms = (() => {
       if (!programTypes?.length || !programCards?.length) return [];
@@ -99,6 +107,9 @@ export default function Filter({
     setfilteredSideBarProgramsList(filteredPrograms || []);
   }, [programCards]);
 
+  /* -------------------------------------------------------------------------- */
+  /*          updating counts value of universities in side filter list         */
+  /* -------------------------------------------------------------------------- */
   useEffect(() => {
     const filteredUniversities = (() => {
       if (!universitiesList?.length || !programCards?.length) return [];
@@ -119,22 +130,6 @@ export default function Filter({
 
   }, [programCards]);
 
-  // useEffect(() => {
-  //   setOpen(filtersTitle);
-  // }, []);
-
-  // const toggleAccordion = (title) => {
-  //   setOpen((prev) => {
-  //     const newOpen = new Set(prev);
-  //     if (newOpen.has(title)) {
-  //       newOpen.delete(title);
-  //     } else {
-  //       newOpen.add(title);
-  //     }
-  //     return newOpen;
-  //   });
-  // };
-
   // Whenever selectedRanges changes, filter programs
   useEffect(() => {
     if (selectedRanges.length === 0) {
@@ -150,12 +145,10 @@ export default function Filter({
     setfilteredProgramsByBudget(filtered);
   }, [selectedRanges]);
 
-  // Whenever selectedRanges changes, filter programs
-  // useEffect(() => {
-  //   setfilteredProgramsByBudget(filteredProgramsList);
-  // }, [filteredProgramsList]);
 
-
+  /* -------------------------------------------------------------------------- */
+  /*                  toggle to open or close the sidebar list                  */
+  /* -------------------------------------------------------------------------- */
   const toggleAccordion = (title) => {
     setOpen((prev) => {
       if (prev.includes(title)) {
@@ -166,6 +159,9 @@ export default function Filter({
     });
   };
 
+  /* -------------------------------------------------------------------------- */
+  /*   toggle to open or close the sidebar list while searching on filter       */
+  /* -------------------------------------------------------------------------- */
   const toggleAccordion2 = (title, length) => {
     setOpen((prev) => {
       if (prev.includes(title) && length == 0) {
@@ -368,24 +364,6 @@ export default function Filter({
           universities.includes(data?.university_id)
         );
       }
-
-      // if (selectedRanges?.length > 0) {
-      //   const filtered = filteredData.filter((item) => {
-      //     const fee = Number(item.tution_fee);
-      //     return selectedRanges.some(({ min, max }) => fee >= min && fee <= max);
-      //   });
-      //   setfilteredProgramsByBudget(filtered);
-      // }
-      // else {
-      //   setfilteredProgramsList(
-      //     countries.length > 0 ||
-      //       universities.length > 0 ||
-      //       programs.length > 0 ||
-      //       courseLevels.length > 0
-      //       ? filteredData || []
-      //       : programCards
-      //   );
-      // }
 
       setfilteredProgramsList(
         countries.length > 0 ||
