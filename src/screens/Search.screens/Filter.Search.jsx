@@ -22,7 +22,9 @@ export default function Filter({
   setSelectedUniqueID,
   selectedUniqueID,
   setSelectedFilterItem,
-  callFilterFunction
+  callFilterFunction,
+  setProgramTypes,
+  setUniversities
 }) {
 
   const applicationFeesSorted = programCards
@@ -54,6 +56,7 @@ export default function Filter({
     Programs: filteredSideBarProgramsList,
     Budget: applicationFeesSorted
   };
+
 
   useEffect(() => {
     if (callFilterFunction) {
@@ -104,8 +107,12 @@ export default function Filter({
       }
       return result;
     })();
+    setProgramTypes(filteredPrograms || []);
     setfilteredSideBarProgramsList(filteredPrograms || []);
   }, [programCards]);
+
+  useEffect(()=>{
+  },[programCards]);
 
   /* -------------------------------------------------------------------------- */
   /*          updating counts value of universities in side filter list         */
@@ -126,8 +133,8 @@ export default function Filter({
       }
       return result;
     })();
+    setUniversities(filteredUniversities || []);
     setfilteredSideBarUniversityList(filteredUniversities || []);
-
   }, [programCards]);
 
   // Whenever selectedRanges changes, filter programs
@@ -556,7 +563,7 @@ export default function Filter({
                       </div>
                       <div>
                         <p className="text-[12px] text-gray-400">
-                          {(title === 'Countries' || selectedUniqueID?.length === 0) ? filterCount(item.name || item.title, title) : item.count || 0}
+                          {(title === 'Countries') ? filterCount(item.name || item.title, title) : item.count || 0}
                           {/* {filterCount(item.name || item.title, title)} */}
                         </p>
                       </div>

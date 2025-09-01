@@ -92,6 +92,8 @@ export default function SearchLayout() {
             selectedUniqueID={selectedUniqueID}
             setSelectedFilterItem={setSelectedFilterItem}
             callFilterFunction={callFilterFunction}
+            setProgramTypes={setProgramTypes}
+            setUniversities={setUniversities}
           />
         </div>
         <div className="w-full">
