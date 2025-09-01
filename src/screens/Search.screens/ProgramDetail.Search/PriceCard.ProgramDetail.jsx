@@ -36,7 +36,7 @@ export default function PriceCard() {
   ];
   return (
     <>
-      <div className="flex flex-col w-full gap-y-[27px]">
+      <div className="flex flex-col w-full gap-y-[27px] tracking-wider">
         {/*------------------------------- blue tile of price -------------------------------*/}
         <div className="primary rounded-[10px] text-white px-[63px] py-[15px]">
           <div className="grid grid-cols-[auto_1fr] gap-x-[12px]">
@@ -82,7 +82,7 @@ export default function PriceCard() {
             ))}
           </div>
           <button
-            className={`primary h-[56px] text-[20px] font-semibold text-white hover:bg-blue-600 transition duration-300`}
+            className={`primary cursor-pointer h-[56px] text-[20px] font-semibold text-white primary-hover transition duration-300`}
           >
             Enroll Now
           </button>
@@ -94,7 +94,7 @@ export default function PriceCard() {
               <button
                 key={item.id}
                 onClick={() => window.open(item.link, "_blank")}
-                className={`bg-gray-200 h-[48px] font-semibold flex items-center justify-center px-[15px] py-[12px] hover:bg-gray-100 transition duration-300 ${item.title !== "" && "gap-x-[8px]"}`}
+                className={`bg-gray-200 cursor-pointer h-[48px] font-semibold flex items-center justify-center px-[15px] py-[12px] hover:bg-gray-100 transition duration-300 ${item.title !== "" && "gap-x-[8px]"}`}
               >
                 <Icons name={item.name} className="w-[20px] h-[20px]" />
                 {item.title !== "" && (
