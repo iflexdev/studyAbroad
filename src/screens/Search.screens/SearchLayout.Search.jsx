@@ -97,7 +97,7 @@ export default function SearchLayout() {
         <div className="w-full">
           <ProgramList
             programCards={filteredProgramsByBudget}
-            setfilteredProgramsList={setfilteredProgramsList}
+            setfilteredProgramsByBudget={setfilteredProgramsByBudget}
             selectedFilterItem={selectedFilterItem}
             setCallFilterFunction={setCallFilterFunction}
           />

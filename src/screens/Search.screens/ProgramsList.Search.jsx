@@ -2,7 +2,7 @@ import React from "react";
 import { X } from "lucide-react";
 import ProgramCard from "./ProgramCard.Search";
 
-export default function programList({ programCards, setfilteredProgramsList, selectedFilterItem, setCallFilterFunction }) {
+export default function programList({ programCards, setfilteredProgramsByBudget, selectedFilterItem, setCallFilterFunction }) {
 
   const shortBy = [
     // "Alphabetical",
@@ -18,12 +18,12 @@ export default function programList({ programCards, setfilteredProgramsList, sel
 
   function sortPrograms(val) {
     if (val == 'Fees - Low to High') {
-      const ascending = [...programCards].sort((a, b) => getFee(a.application_fees) - getFee(b.application_fees));
-      setfilteredProgramsList(ascending);
+      const ascending = [...programCards].sort((a, b) => getFee(a.tution_fee) - getFee(b.tution_fee));
+      setfilteredProgramsByBudget(ascending);
     }
     else {
-      const descending = [...programCards].sort((a, b) => getFee(b.application_fees) - getFee(a.application_fees));
-      setfilteredProgramsList(descending);
+      const descending = [...programCards].sort((a, b) => getFee(b.tution_fee) - getFee(a.tution_fee));
+      setfilteredProgramsByBudget(descending);
     }
   }
 
