@@ -83,12 +83,13 @@ export const SvgIcons = {
 /*                             all used images                                */
 /* -------------------------------------------------------------------------- */
 export const AllImages = {
-    banner: "top-banner-1.png",
+  banner: "top-banner-1.png",
+  programBanner: "program-banner.png",
 };
 
 /* -------------------------------------------------------------------------- */
 /*                         all used logo and favicons                         */
 /* -------------------------------------------------------------------------- */
 export const LogosFavicons = {
-    logo: "logo-home.svg",
+  logo: "logo-home.svg",
 };
