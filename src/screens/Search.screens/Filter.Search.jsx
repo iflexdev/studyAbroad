@@ -604,6 +604,11 @@ export default function Filter({
                             {range}
                           </label>
                         </div>
+                        <div>
+                          <p className="text-[12px] text-gray-400">
+                            INR
+                          </p>
+                        </div>
                       </div>
                     ));
                   })()}

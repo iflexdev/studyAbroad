@@ -1,21 +1,39 @@
+import { useEffect, useState } from "react";
 import ProgramCard from "../ProgramCard.Search";
 import Banner from "./Banner.ProgramDetail";
 import PriceCard from "./PriceCard.ProgramDetail";
 import TabSection from "./TabSection.ProgamDetail";
+import { useParams } from "react-router";
+import { getAllProgramsDetail } from "../../../api/ApiCallHandler.api";
 
 export default function ProgramDetail() {
+  const [programDetail, setProgramDetail] = useState([]);
+  const [alert, setAlert] = useState([]);
+  const {id} = useParams();
+
+  /* -------------------------------------------------------------------------- */
+  /*                        for fetching live course data                       */
+  /* -------------------------------------------------------------------------- */
+  useEffect(() => {
+    const fetchLeaderBoardData = async () => {
+      const LiveCourses = await getAllProgramsDetail(id, setAlert);
+      setProgramDetail(LiveCourses?.program);
+    }
+    fetchLeaderBoardData();
+  }, []);
+
   return (
     <>
       {/*---------------------------- program detail Banner ----------------------------*/}
-      <Banner />
+      <Banner programDetail={programDetail} />
       {/*---------------------------- program detail Details ----------------------------*/}
       <div className="px-[148px] py-[34px]">
         <div className="flex gap-x-[72px]">
           <div className="flex-1">
-            <TabSection />
+            <TabSection programDetail={programDetail} />
           </div>
           <div className="w-[477px]">
-            <PriceCard />
+            <PriceCard programDetail={programDetail} />
           </div>
         </div>
         {/*---------------------------- similar program ----------------------------*/}

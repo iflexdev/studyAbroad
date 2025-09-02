@@ -5,9 +5,8 @@ import Services from "./Tabs.ProgamDetail/Services.Tabs";
 import Gallery from "./Tabs.ProgamDetail/Gallery.Tabs";
 import Review from "./Tabs.ProgamDetail/Review.Tabs";
 
-export default function TabSection() {
+export default function TabSection({programDetail}) {
   const tabs = [
-    
     "Overview",
     "Programs",
     "Study Abroad Services",
@@ -46,11 +45,11 @@ export default function TabSection() {
         ))}
       </div>
       <div className="py-[35px]">
-        {activeTab === "Overview" && <Overview />}
+        {activeTab === "Overview" && <Overview programDetail={programDetail} />}
         {activeTab === "Programs" && <Programs />}
         {activeTab === "Study Abroad Services" && <Services />}
-        {activeTab === "Gallery" && <Gallery />}
-        {activeTab === "Review" && <Review />}
+        {activeTab === "Gallery" && <Gallery images={programDetail?.images} />}
+        {activeTab === "Review" && <Review Review={programDetail?.Review} />}
       </div>
     </>
   );

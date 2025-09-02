@@ -21,7 +21,7 @@ export default function AppRoutes() {
           element: <SearchLayout />,
         },
         {
-          path: "program-detail",
+          path: "program-detail/:id",
           element: <ProgramDetail />
         },
         {

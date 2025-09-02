@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { CalendarDays, MapPin, Star, UsersRound } from "lucide-react";
 import ApplyToProgram from "./ApplyToProgram.ProgramDetail";
 
-export default function Banner() {
-  const [isOpenToApply, setIsOpenToApply] = useState(false);
+export default function Banner({programDetail}) {
+    const [isOpenToApply, setIsOpenToApply] = useState(false);
   return (
     <>
       <div className="programDetailsBannerBG tracking-wide">
@@ -19,35 +19,35 @@ export default function Banner() {
               </figure>
               <div className="capitalize flex flex-col gap-[12px]">
                 <h1 className="text-[40px] leading-[50px] font-semibold">
-                  program title
+                  {programDetail?.title || 'program title'}
                 </h1>
                 <div className="text-gray-600 flex flex-col gap-1">
                   <div className="flex gap-[13px] items-center text-base font-medium ">
                     <p className="text-yellow-500 flex items-center gap-1">
-                      <span>4.5</span>
+                      <span>{programDetail?.rating || 'no rating'}</span>
                       <Star className="w-4" />
                     </p>
                     <p className="flex items-center gap-1">
-                      &#x2772;<span>123456</span>
+                      &#x2772;<span>{programDetail?.ratingCount || '123456'}</span>
                       <span>rating</span>&#x2773;
                     </p>
                     <p className="flex items-center gap-1">
-                      <span>123456</span>
+                      <span>{programDetail?.studentsCount || '123456'}</span>
                       <span>students</span>
                     </p>
                   </div>
                   <div className="flex gap-[34px] items-center text-base font-medium ">
                     <p className="flex items-center gap-1">
                       <MapPin className="w-4" />
-                      <span>location</span>
+                      <span>{programDetail?.location || 'location'}</span>
                     </p>
                     <p className="flex items-center gap-1">
                       <CalendarDays className="w-4" />
-                      <span>duration&nbsp;&#x3a;&nbsp;{"3 months"}</span>
+                      <span>duration&nbsp;&#x3a;&nbsp;{programDetail?.duration || "3 months"}</span>
                     </p>
                     <p className="flex items-center gap-1">
                       <UsersRound className="w-4" />
-                      <span>Enrolled&nbsp;&#x3a;&nbsp;{"54,548"}</span>
+                      <span>Enrolled&nbsp;&#x3a;&nbsp;{programDetail?.enrolled || "54,548"}</span>
                     </p>
                   </div>
                 </div>
@@ -63,12 +63,12 @@ export default function Banner() {
           <div className="grid grid-cols-[auto_auto_auto] gap-x-[16px]">
             <div className="w-[733px] row-span-1 h-[400px] border relative group">
               <img
-                src="https://images.unsplash.com/20/cambridge.JPG?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dW5pdmVyc2l0eXxlbnwwfHwwfHx8MA%3D%3D"
+                src={programDetail?.images?.[0]}
                 alt=""
                 className="w-full h-full object-cover"
               />
               <span
-                onClick={() => {}}
+                onClick={() => { }}
                 className="absolute bottom-2 right-2 transform transition-transform duration-300 group-hover:scale-115 bg-gray-300 h-[41px] w-[41px] flex items-center justify-center rounded-full text-base font-semibold hover:bg-white cursor-pointer"
               >
                 +5
@@ -77,14 +77,14 @@ export default function Banner() {
             <div className="row-span-2 w-[364px] flex flex-col gap-y-[16px]">
               <div className="h-[192px] hover:scale-105 transition duration-500 border">
                 <img
-                  src="https://images.unsplash.com/photo-1568792923760-d70635a89fdc?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8dW5pdmVyc2l0eXxlbnwwfHwwfHx8MA%3D%3D"
+                  src={programDetail?.images?.[1]}
                   alt=""
                   className="w-full h-full object-cover"
                 />
               </div>
               <div className="h-[192px] hover:scale-105 transition duration-500 border">
                 <img
-                  src="https://images.unsplash.com/photo-1587418481741-c9f1358a123b?q=80&w=1123&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  src={programDetail?.images?.[2]}
                   alt=""
                   className="w-full h-full object-cover"
                 />
@@ -92,7 +92,7 @@ export default function Banner() {
             </div>
             <div className="row-span-1 w-[487px] h-[400px] hover:scale-105 transition duration-500 border">
               <img
-                src="https://plus.unsplash.com/premium_photo-1683887034473-74e486cdb7a1?q=80&w=1169&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                src={programDetail?.images?.[3]}
                 alt=""
                 className="w-full h-full object-cover"
               />
@@ -101,7 +101,7 @@ export default function Banner() {
         </div>
       </div>
       {/* -----------------------------Apply button popup----------------------------- */}
-      {isOpenToApply && <ApplyToProgram setIsOpenToApply={setIsOpenToApply} isOpenToApply={isOpenToApply}/>}
+      {isOpenToApply && <ApplyToProgram setIsOpenToApply={setIsOpenToApply} isOpenToApply={isOpenToApply} />}
     </>
   );
 }
