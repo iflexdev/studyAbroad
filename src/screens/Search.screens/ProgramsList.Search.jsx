@@ -66,7 +66,8 @@ export default function programList({ programCards, setfilteredProgramsList }) {
           )}
         </div>
       </div>
-      <div className="py-3 grid lg:grid-cols-2 xl:grid-cols-3 gap-4">
+      <div className="py-3 flex flex-wrap gap-4">
+      {/* <div className="py-3 grid lg:grid-cols-2 xl:grid-cols-3 gap-4"> */}
         {programCards.map((card) => (
           <ProgramCard card={card} />
         ))}

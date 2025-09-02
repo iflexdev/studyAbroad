@@ -66,7 +66,7 @@ export default function SearchLayout() {
   return (
     <>
       <div className="flex flex-row gap-10 py-[22px] px-22 items-start">
-        <div className="w-[340px]">
+        <div className="min-w-[200px] w-[340px]">
           <Filter
             countriesList={countries}
             universitiesList={universities}

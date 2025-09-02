@@ -22,7 +22,7 @@ export default function TabSection() {
           <>
             <div
               key={tab}
-              className={`cursor-pointer flex w-full items-center justify-center tracking-wider transition duration-500
+              className={`cursor-pointer line-clamp-1 flex w-full items-center justify-center tracking-wider transition duration-500
                 ${
                   activeTab === tab
                     ? "primary text-white"
