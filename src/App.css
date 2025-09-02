@@ -20,7 +20,7 @@
   /* Chrome, Safari, Edge */
 }
 .custom-scrollbar {
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
   scrollbar-width: thin; /* Firefox */
   scrollbar-color: #1f5fc7 #ffffff; /* thumb track */
 }

@@ -22,6 +22,10 @@ export default function SearchLayout() {
   const [filteredSideBarUniversityList, setfilteredSideBarUniversityList] = useState([]);
   const [filteredSideBarProgramsList, setfilteredSideBarProgramsList] = useState([]);
   const [filteredSideBarCourseList, setfilteredSideBarCourseList] = useState([]);
+  const [selectedUniqueID, setSelectedUniqueID] = useState([]);
+  const [selectedFilterItem, setSelectedFilterItem] = useState([]);
+  const [callFilterFunction, setCallFilterFunction] = useState();
+  const [isLoading, setisLoading] = useState(false);
 
   /* --------------------------- program card state -------------------------- */
   const [programCards, setProgramCards] = useState([]);
@@ -31,6 +35,7 @@ export default function SearchLayout() {
   /* -------------------------------------------------------------------------- */
   useEffect(() => {
     const fetchAllData = async () => {
+      setisLoading(true);
       const [c, u, cl, pt, pc] = await Promise.all([
         getAllCountries(),
         getAllUniversities(),
@@ -38,6 +43,7 @@ export default function SearchLayout() {
         getAllProgramTypes(),
         getAllProgramCards(),
       ]);
+      setisLoading(false);
       if (c) {
         setCountries(c.data || []);
         setfilteredSideBarCountryList(c.data || []);
@@ -65,34 +71,51 @@ export default function SearchLayout() {
 
   return (
     <>
-      <div className="flex flex-row gap-10 py-[22px] px-22 items-start">
-        <div className="min-w-[200px] w-[340px]">
-          <Filter
-            countriesList={countries}
-            universitiesList={universities}
-            courseLevel={courseLevel}
-            programTypes={programTypes}
-            setfilteredProgramsList={setfilteredProgramsList}
-            programCards={programCards}
-            setfilteredSideBarCountryList={setfilteredSideBarCountryList}
-            filteredSideBarCountryList={filteredSideBarCountryList}
-            filteredSideBarUniversityList={filteredSideBarUniversityList}
-            setfilteredSideBarUniversityList={setfilteredSideBarUniversityList}
-            setfilteredSideBarProgramsList={setfilteredSideBarProgramsList}
-            filteredSideBarProgramsList={filteredSideBarProgramsList}
-            setfilteredSideBarCourseList={setfilteredSideBarCourseList}
-            filteredSideBarCourseList={filteredSideBarCourseList}
-            filteredProgramsList={filteredProgramsList}
-            setfilteredProgramsByBudget={setfilteredProgramsByBudget}
-            filteredProgramsByBudget={filteredProgramsByBudget}
-          />
+      <div className="relative">
+        <div className="flex flex-row gap-10 py-[22px] px-22 items-start">
+          <div className="w-[340px]">
+            <Filter
+              countriesList={countries}
+              universitiesList={universities}
+              courseLevel={courseLevel}
+              programTypes={programTypes}
+              setfilteredProgramsList={setfilteredProgramsList}
+              programCards={programCards}
+              setfilteredSideBarCountryList={setfilteredSideBarCountryList}
+              filteredSideBarCountryList={filteredSideBarCountryList}
+              filteredSideBarUniversityList={filteredSideBarUniversityList}
+              setfilteredSideBarUniversityList={setfilteredSideBarUniversityList}
+              setfilteredSideBarProgramsList={setfilteredSideBarProgramsList}
+              filteredSideBarProgramsList={filteredSideBarProgramsList}
+              setfilteredSideBarCourseList={setfilteredSideBarCourseList}
+              filteredSideBarCourseList={filteredSideBarCourseList}
+              filteredProgramsList={filteredProgramsList}
+              setfilteredProgramsByBudget={setfilteredProgramsByBudget}
+              filteredProgramsByBudget={filteredProgramsByBudget}
+              setSelectedUniqueID={setSelectedUniqueID}
+              selectedUniqueID={selectedUniqueID}
+              setSelectedFilterItem={setSelectedFilterItem}
+              callFilterFunction={callFilterFunction}
+              setProgramTypes={setProgramTypes}
+              setUniversities={setUniversities}
+            />
+          </div>
+          <div className="w-full">
+            <ProgramList
+              programCards={filteredProgramsByBudget}
+              setfilteredProgramsByBudget={setfilteredProgramsByBudget}
+              selectedFilterItem={selectedFilterItem}
+              setCallFilterFunction={setCallFilterFunction}
+            />
+          </div>
         </div>
-        <div className="w-full">
-          <ProgramList
-            programCards={filteredProgramsByBudget}
-            setfilteredProgramsList={setfilteredProgramsList}
-          />
-        </div>
+
+        {/* Loader Overlay */}
+        {isLoading && (
+          <div className="absolute inset-0 flex items-center justify-center bg-black/50 z-50">
+            <div className="w-16 h-16 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
+          </div>
+        )}
       </div>
     </>
   );
