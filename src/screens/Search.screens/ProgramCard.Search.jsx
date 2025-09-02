@@ -148,7 +148,7 @@ export default function ProgramCard({ card }) {
           </div>
         </div>
 
-        <div className="overflow-auto no-scrollbar">
+        <div className="overflow-auto no-scrollbar flex flex-col gap-y-6">
           <div className="grid grid-cols-2 gap-x-10 gap-y-6 text-gray-700">
             <div>
               <p className="text-gray-400 text-[13.46px]">Location</p>
@@ -188,13 +188,13 @@ export default function ProgramCard({ card }) {
               </p>
             </div>
           </div>
-
-          {card?.intakes != "null" && (
-            <div className="">
-              <p className="font-medium text-[13.46px] underline text-gray-500">
-                Success Prediction
-              </p>
-              <div className="grid grid-cols-3 gap-4 mt-3">
+          <hr className="" />
+          <div className="flex flex-col gap-y-3">
+            <p className="font-medium text-[13.46px] text-gray-500">
+              Success Prediction
+            </p>
+            {card?.intakes != "null" ? (
+              <div className="grid grid-cols-3 gap-4">
                 {intake?.low && (
                   <div className="flex flex-col text-center gap-y-1 ">
                     <p className="text-gray-400 text-[13.46px]">
@@ -226,10 +226,16 @@ export default function ProgramCard({ card }) {
                   </div>
                 )}
               </div>
-            </div>
-          )}
-          {/* w-[414px] */}
-          <div className="h-[46px] mt-[13px]">
+            ) : (
+              <div className="flex flex-col text-center gap-y-2">
+                <p className="text-gray-400 text-[13.46px]">no date provided</p>
+                <div className="w-full text-center py-1 text-xs bg-blue-50">
+                  We will update soon
+                </div>
+              </div>
+            )}
+          </div>
+          <div className="h-[46px]">
             <button
               className="w-full group-hover:bg-[#1f5fc7] group-hover:text-white h-full rounded-lg text-base border-gray-300 border-2 text-gray-600 bg-secondary hover:bg-[#1f5fc7] hover:text-white transform transition-all ease-in-out font-semibold cursor-pointer"
               onClick={() => openProgramDetail(card)}

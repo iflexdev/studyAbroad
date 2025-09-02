@@ -1,6 +1,5 @@
 import React from "react";
-import Icons from "../../../utils/defaultHandlers/Icons";
-import { Cross, X } from "lucide-react";
+import { X } from "lucide-react";
 
 export default function ApplyToProgram({ setIsOpenToApply }) {
   return (
