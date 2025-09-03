@@ -22,7 +22,7 @@ export default function ProgramDetail() {
       setProgramDetail(programDetailData?.program);
     }
     fetchProgramsDetail();
-  }, [updateProgramID]);
+  }, [updateProgramID, id]);
 
   /* -------------------------------------------------------------------------- */
   /*                        for fetching program detail data                    */
@@ -34,7 +34,7 @@ export default function ProgramDetail() {
       setProgramList(similerData);
     }
     fetchAllPrograms();
-  }, [programDetail, updateProgramID]);
+  }, [programDetail]);
 
   return (
     <>
