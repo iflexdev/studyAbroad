@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 
-export default function ProgramCard({ card }) {
+export default function ProgramCard({ card, setUpdateProgramID }) {
   const [intake, setintake] = useState({});
 
   function getIntakeLevels(card) {
@@ -87,20 +87,23 @@ export default function ProgramCard({ card }) {
   function convertCurrency(price, currency) {
     if (currency === 'CAD') {
       const amount = price * 0.016;
-      return parseInt(amount)+' CAD';
+      return parseInt(amount) + ' CAD';
     }
     else if (currency === 'AUD') {
       const amount = price * 0.018;
-      return parseInt(amount)+' AUD';
+      return parseInt(amount) + ' AUD';
     }
     else {
-      return price+' INR';
+      return price + ' INR';
     }
   }
 
   // navigate("../program-detail")
-  function openProgramDetail(item){
-    navigate(`../program-detail/${item?.id}`);
+  function openProgramDetail(item) {
+    navigate(`../program-detail/${item?.id}`, {
+      state: item, // passing whole item
+    });
+    setUpdateProgramID(item?.id);
   }
 
   return (

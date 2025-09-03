@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { CalendarDays, MapPin, Star, UsersRound } from "lucide-react";
 import ApplyToProgram from "./ApplyToProgram.ProgramDetail";
 
-export default function Banner({programDetail}) {
-    const [isOpenToApply, setIsOpenToApply] = useState(false);
+export default function Banner({ programDetail }) {
+  const [isOpenToApply, setIsOpenToApply] = useState(false);
   return (
     <>
       <div className="programDetailsBannerBG tracking-wide">
@@ -19,7 +19,7 @@ export default function Banner({programDetail}) {
               </figure>
               <div className="capitalize flex flex-col gap-[12px]">
                 <h1 className="text-[40px] leading-[50px] font-semibold">
-                  {programDetail?.title || 'program title'}
+                  {programDetail?.program_name || 'program title'}
                 </h1>
                 <div className="text-gray-600 flex flex-col gap-1">
                   <div className="flex gap-[13px] items-center text-base font-medium ">
@@ -31,19 +31,19 @@ export default function Banner({programDetail}) {
                       &#x2772;<span>{programDetail?.ratingCount || '123456'}</span>
                       <span>rating</span>&#x2773;
                     </p>
-                    <p className="flex items-center gap-1">
+                    {/* <p className="flex items-center gap-1">
                       <span>{programDetail?.studentsCount || '123456'}</span>
                       <span>students</span>
-                    </p>
+                    </p> */}
                   </div>
                   <div className="flex gap-[34px] items-center text-base font-medium ">
                     <p className="flex items-center gap-1">
                       <MapPin className="w-4" />
-                      <span>{programDetail?.location || 'location'}</span>
+                      <span>{programDetail?.city_name ? (programDetail?.city_name + ' ,' + programDetail?.country_name) : programDetail?.country_name}</span>
                     </p>
                     <p className="flex items-center gap-1">
                       <CalendarDays className="w-4" />
-                      <span>duration&nbsp;&#x3a;&nbsp;{programDetail?.duration || "3 months"}</span>
+                      <span>duration&nbsp;&#x3a;&nbsp;{programDetail?.total_duration || "3 months"}</span>
                     </p>
                     <p className="flex items-center gap-1">
                       <UsersRound className="w-4" />
@@ -57,7 +57,7 @@ export default function Banner({programDetail}) {
               onClick={() => setIsOpenToApply(!isOpenToApply)}
               className={`primary h-[48px] px-[38px]  text-[20px] font-semibold text-white rounded-full hover:scale-105 primary-hover transition duration-300`}
             >
-              Apply Now
+              Enroll Now
             </button>
           </div>
           <div className="grid grid-cols-[auto_auto_auto] gap-x-[16px]">
@@ -91,9 +91,12 @@ export default function Banner({programDetail}) {
               </div>
             </div>
             <div className="row-span-1 w-[487px] h-[400px] hover:scale-105 transition duration-500 border">
-              <img
-                src={programDetail?.images?.[3]}
-                alt=""
+              <video
+                src='https://avtshare01.rz.tu-ilmenau.de/avt-vqdb-uhd-1/test_1/segments/bigbuck_bunny_8bit_200kbps_360p_60.0fps_h264.mp4'
+                controls
+                autoPlay
+                muted
+                loop   // optional: makes it replay continuously
                 className="w-full h-full object-cover"
               />
             </div>

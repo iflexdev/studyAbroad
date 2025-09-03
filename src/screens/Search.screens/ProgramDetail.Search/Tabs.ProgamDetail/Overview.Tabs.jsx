@@ -46,7 +46,7 @@ export default function Overview({ programDetail }) {
           <div className="grid grid-cols-[1fr_auto] gap-x-[84px] primary rounded-[9px] pe-[46px] text-white">
             <div className="flex flex-col py-[34px] ps-[36px] gap-y-5">
               <p className="font-semibold text-[25px] leading-[27px]">
-                Why to Choose University of Canterbury
+                Why to Choose {programDetail?.university_name}
               </p>
               <p className="text-base tracking- leading-[26px]">
                 {programDetail?.whyTOChoose?.description}

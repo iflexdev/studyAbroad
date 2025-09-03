@@ -4,23 +4,37 @@ import Banner from "./Banner.ProgramDetail";
 import PriceCard from "./PriceCard.ProgramDetail";
 import TabSection from "./TabSection.ProgamDetail";
 import { useParams } from "react-router";
-import { getAllProgramsDetail } from "../../../api/ApiCallHandler.api";
+import { getAllProgramCards, getAllProgramsDetail } from "../../../api/ApiCallHandler.api";
 
 export default function ProgramDetail() {
   const [programDetail, setProgramDetail] = useState([]);
+  const [programList, setProgramList] = useState([]);
   const [alert, setAlert] = useState([]);
-  const {id} = useParams();
+  const { id } = useParams();
+  const [updateProgramID, setUpdateProgramID] = useState(id);
 
   /* -------------------------------------------------------------------------- */
-  /*                        for fetching live course data                       */
+  /*                        for fetching program detail data                    */
   /* -------------------------------------------------------------------------- */
   useEffect(() => {
-    const fetchLeaderBoardData = async () => {
-      const LiveCourses = await getAllProgramsDetail(id, setAlert);
-      setProgramDetail(LiveCourses?.program);
+    const fetchProgramsDetail = async () => {
+      const programDetailData = await getAllProgramsDetail(id, setAlert);
+      setProgramDetail(programDetailData?.program);
     }
-    fetchLeaderBoardData();
-  }, []);
+    fetchProgramsDetail();
+  }, [updateProgramID]);
+
+  /* -------------------------------------------------------------------------- */
+  /*                        for fetching program detail data                    */
+  /* -------------------------------------------------------------------------- */
+  useEffect(() => {
+    const fetchAllPrograms = async () => {
+      const programCards = await getAllProgramCards();
+      const similerData = (programCards?.data || [])?.filter((item) => ((item.program_id == programDetail?.program_id) && item.id != id));
+      setProgramList(similerData);
+    }
+    fetchAllPrograms();
+  }, [programDetail, updateProgramID]);
 
   return (
     <>
@@ -37,32 +51,22 @@ export default function ProgramDetail() {
           </div>
         </div>
         {/*---------------------------- similar program ----------------------------*/}
-        <div className="flex flex-col gap-[34px]">
-          <p className="font-semibold text-[25px] leading-[31px]">
-            Similar Programs
-          </p>
-          <div className="grid grid-cols-3 gap-[30px]">
-            {Array.from({ length: 3 }).map((_, index) => (
-              <ProgramCard
-                key={index}
-                card={{
-                  id: index,
-                  university_name: `University Name ${index + 1}`,
-                  study_levels: `Badges ${index + 1}`,
-                  program_name: `Program Title ${index + 1}`,
-                  country_name: `Country Name ${index + 1}`,
-                  currency: `Currency ${index + 1}`,
-                  city_name: `City Name ${index + 1}`,
-                  tution_fee: `Tution Fee ${index + 1}`,
-                  application_fees: `Application Fees ${index + 1}`,
-                  total_duration: `Total Duration ${index + 1}`,
-                  logo: `/logo/favicon.svg`,
-                  description: `Sample description for program ${index + 1}`,
-                }}
-              />
-            ))}
+        {programList?.length > 0 &&
+          <div className="flex flex-col gap-[34px]">
+            <p className="font-semibold text-[25px] leading-[31px]">
+              Similar Programs
+            </p>
+            <div className="flex gap-[30px] overflow-x-auto no-scrollbar">
+              {(programList || []).map((card, index) => (
+                <ProgramCard
+                  key={index}
+                  card={card}
+                  setUpdateProgramID={setUpdateProgramID}
+                />
+              ))}
+            </div>
           </div>
-        </div>
+        }
       </div>
     </>
   );
