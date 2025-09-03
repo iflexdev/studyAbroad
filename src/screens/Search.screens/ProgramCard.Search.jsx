@@ -89,7 +89,7 @@ export default function ProgramCard({ card }) {
       {/* h-[598px] */}
       <div
         id={card.id}
-        className="group h-auto border-2 p-5 rounded-2xl flex flex-col gap-y-5 justify-between hover:bg-[#F5F8FA] transform transition-all ease-linear delay-100"
+        className="group max-w-[456px] h-auto border-2 p-5 rounded-2xl flex flex-col gap-y-5 justify-between hover:bg-[#F5F8FA] transform transition-all ease-linear delay-100"
       >
         <div className="flex flex-col gap-y-4">
           <div className="grid grid-rows-1 grid-cols-[auto_auto] justify-start items-start h-[82px] gap-x-5">
