@@ -14,7 +14,7 @@ export default function ApplyToProgram({ setIsOpenToApply }) {
                   className="no-underline cursor-default decoration-transparent hover:decoration-transparent"
                   // title={selectedLiveClasses?.title}
                 >
-                  Apply for MBA Program
+                  Enroll Now for MBA Program
                 </abbr>
               </h2>
               <p className="text-lg font-normal leading-[18px]">
@@ -24,7 +24,7 @@ export default function ApplyToProgram({ setIsOpenToApply }) {
 
             <button
               onClick={() => setIsOpenToApply(false)}
-              className="top-5 absolute right-5 py-1 px-2 rounded-full bg-gray-300 opacity-70 hover:bg-gray-100 transition"
+              className="top-5 absolute right-5 py-1 px-2 rounded-full bg-gray-300 opacity-70 hover:bg-gray-100 transition cursor-pointer"
             >
               <X className="w-4 font-bold primary-text" />
             </button>
@@ -131,9 +131,9 @@ export default function ApplyToProgram({ setIsOpenToApply }) {
             </div>
             <div className="flex justify-end">
               <button
-                className={`primary h-[48px] px-[38px] w-fit text-[20px] font-semibold text-white rounded-full hover:scale-105 primary-hover transition duration-300`}
+                className={`primary h-[48px] px-[38px] w-fit text-[20px] font-semibold text-white rounded-full hover:scale-105 primary-hover transition duration-300 cursor-pointer`}
               >
-                Apply Now
+                Submit
               </button>
             </div>
           </div>

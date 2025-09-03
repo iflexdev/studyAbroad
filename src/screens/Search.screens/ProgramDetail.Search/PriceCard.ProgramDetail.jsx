@@ -1,11 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import Icons from "../../../utils/defaultHandlers/Icons";
 import { IndianRupee } from "lucide-react";
 import { SvgIcons } from "../../../utils/defaults/All_Images_Logo";
 import CounsellorsFrom from "../../../utils/defaultHandlers/CounsellorsFrom";
+import Alert from "../../../utils/defaults/Alert.button";
+import ApplyToProgram from "./ApplyToProgram.ProgramDetail";
 
-export default function PriceCard() {
-    /* ------------------------ all price and icons array ----------------------- */
+export default function PriceCard({ programDetail }) {
+
+  const [alertData, setAlert] = useState(null);
+  const [isOpenToApply, setIsOpenToApply] = useState(false);
+  /* ------------------------ all price and icons array ----------------------- */
+  const courseURL = window.location.href;
   const records = [
     { id: 1, name: "clockHours", title: "Course Duration", value: "6 months" },
     {
@@ -21,6 +27,7 @@ export default function PriceCard() {
       value: "Rs. 12,775.00 / First Year ",
     },
   ];
+
   /* ----------------- all social Media copy and navigate link ---------------- */
   const socialMedia = [
     {
@@ -29,11 +36,29 @@ export default function PriceCard() {
       title: "Copy Link",
       link: "https://www.google.com/",
     },
-    { id: 1, name: "facebook", title: "", link: "https://www.facebook.com/" },
-    { id: 2, name: "twitter", title: "", link: "https://twitter.com/" },
-    { id: 3, name: "mailOutline", title: "", link: "https://in.linkedin.com/" },
-    { id: 4, name: "whatsapp", title: "", link: "https://wa.me/91 9999999999" },
+    { id: 1, name: "facebook", title: "", link: `https://www.facebook.com/sharer/sharer.php?u=${courseURL}` },
+    { id: 2, name: "twitter", title: "", link: `https://twitter.com/intent/tweet?url=${courseURL}` },
+    { id: 3, name: "mailOutline", title: "", link: `mailto:?subject=$&body=Check%20this%20out:%20${courseURL}` },
+    { id: 4, name: "whatsapp", title: "", link: `https://wa.me/?text=%20${courseURL}` },
   ];
+
+  /* -------------------------------------------------------------------------- */
+  /*                              for copy link url                             */
+  /* -------------------------------------------------------------------------- */
+  const handleCopyLink = async () => {
+    try {
+      await navigator.clipboard.writeText(courseURL);
+      setAlert({
+        type: "success",
+        message: "Link copied to clipboard!",
+      });
+    } catch (error) {
+      setAlert({
+        type: error,
+        message: "Failed to copy link!",
+      });
+    }
+  };
   return (
     <>
       <div className="flex flex-col w-full gap-y-[27px] tracking-wider">
@@ -46,7 +71,7 @@ export default function PriceCard() {
                 <p className="font-medium text-xl">Total Course Investment</p>
                 <p className="flex items-center gap-1">
                   <IndianRupee className="w-[25px]" />
-                  <span className="font-bold text-[28.6px]">13,3410</span>
+                  <span className="font-bold text-[28.6px]">{programDetail?.TotalCourseInvestment || '13,3410'}</span>
                 </p>
               </div>
               <div className="flex flex-col items-center leading-25">
@@ -64,24 +89,49 @@ export default function PriceCard() {
         <div className="rounded-[10px] p-5 border shadow-sm flex flex-col gap-y-[24px]">
           <p className="font-medium text-xl leading-[22px]">Cost & Duration</p>
           <div className="flex flex-col gap-y-[24px]">
-            {records.map((item) => (
-              <div
-                key={item.id}
-                className="grid grid-cols-[35px_1fr] gap-x-[17px] h-[46px]"
-              >
-                <Icons name={item.name} className="w-[35px] h-[35px]" />
-                <div className="flex flex-col">
-                  <p className="font-medium text-xl leading-[22px]">
-                    {item.value}
-                  </p>
-                  <p className="font-medium text-base leading-[22px] text-gray-500">
-                    {item.title}
-                  </p>
-                </div>
+            {/* {records.map((item) => ( */}
+            <div
+              className="grid grid-cols-[35px_1fr] gap-x-[17px] h-[46px]"
+            >
+              <Icons name='clockHours' className="w-[35px] h-[35px]" />
+              <div className="flex flex-col">
+                <p className="font-medium text-xl leading-[22px]">
+                  {programDetail.total_duration}
+                </p>
+                <p className="font-medium text-base leading-[22px] text-gray-500">
+                  Course Duration
+                </p>
               </div>
-            ))}
+            </div>
+            <div
+              className="grid grid-cols-[35px_1fr] gap-x-[17px] h-[46px]"
+            >
+              <Icons name="bar" className="w-[35px] h-[35px]" />
+              <div className="flex flex-col">
+                <p className="font-medium text-xl leading-[22px]">
+                  {programDetail?.CostAndDuration?.GrossTuition}
+                </p>
+                <p className="font-medium text-base leading-[22px] text-gray-500">
+                  Gross Tuition
+                </p>
+              </div>
+            </div>
+            <div
+              className="grid grid-cols-[35px_1fr] gap-x-[17px] h-[46px]"
+            >
+              <Icons name="hut" className="w-[35px] h-[35px]" />
+              <div className="flex flex-col">
+                <p className="font-medium text-xl leading-[22px]">
+                  {programDetail?.CostAndDuration?.CostofLiving}
+                </p>
+                <p className="font-medium text-base leading-[22px] text-gray-500">
+                  Cost of Living
+                </p>
+              </div>
+            </div>
+            {/* // ))} */}
           </div>
-          <button
+          <button onClick={() => setIsOpenToApply(!isOpenToApply)}
             className={`primary cursor-pointer h-[56px] text-[20px] font-semibold text-white primary-hover transition duration-300`}
           >
             Enroll Now
@@ -93,7 +143,7 @@ export default function PriceCard() {
             {socialMedia.map((item) => (
               <button
                 key={item.id}
-                onClick={() => window.open(item.link, "_blank")}
+                onClick={() => { item?.name == 'copy' ? handleCopyLink() : window.open(item.link, "_blank"); }}
                 className={`bg-gray-200 cursor-pointer h-[48px] font-semibold flex items-center justify-center px-[15px] py-[12px] hover:bg-gray-100 transition duration-300 ${item.title !== "" && "gap-x-[8px]"}`}
               >
                 <Icons name={item.name} className="w-[20px] h-[20px]" />
@@ -107,6 +157,16 @@ export default function PriceCard() {
         {/*------------------------------- Counsellors form -------------------------------*/}
         <CounsellorsFrom />
       </div>
+
+      {isOpenToApply && <ApplyToProgram setIsOpenToApply={setIsOpenToApply} isOpenToApply={isOpenToApply} />}
+
+      {alertData && (
+        <Alert
+          type={alertData.type}
+          message={alertData.message}
+          onClose={() => setAlert(null)}
+        />
+      )}
     </>
   );
 }

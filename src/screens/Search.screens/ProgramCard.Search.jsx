@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 
-export default function ProgramCard({ card }) {
+export default function ProgramCard({ card, setUpdateProgramID }) {
   const [intake, setintake] = useState({});
 
   function getIntakeLevels(card) {
@@ -84,6 +84,28 @@ export default function ProgramCard({ card }) {
 
   const navigate = useNavigate();
 
+  function convertCurrency(price, currency) {
+    if (currency === 'CAD') {
+      const amount = price * 0.016;
+      return parseInt(amount) + ' CAD';
+    }
+    else if (currency === 'AUD') {
+      const amount = price * 0.018;
+      return parseInt(amount) + ' AUD';
+    }
+    else {
+      return price + ' INR';
+    }
+  }
+
+  // navigate("../program-detail")
+  function openProgramDetail(item) {
+    navigate(`../program-detail/${item?.id}`, {
+      state: item, // passing whole item
+    });
+    setUpdateProgramID(item?.id);
+  }
+
   return (
     <>
       {/* h-[598px] */}
@@ -150,7 +172,8 @@ export default function ProgramCard({ card }) {
             <div>
               <p className="text-gray-400 text-[13.46px]">Tuition Fees</p>
               <p className="font-medium text-base">
-                {card.tution_fee || "not found"}
+                {(convertCurrency(parseInt(card.tution_fee), card.currency))}
+                {/* {convertCurrency()} */}
               </p>
             </div>
             <div>
@@ -200,7 +223,7 @@ export default function ProgramCard({ card }) {
                     <p className="text-gray-400 text-[13.46px]">
                       {intake?.high?.[0] + " " + intake?.high?.[1]}
                     </p>
-                    <div className="w-full text-center py-1 text-xs bg-green-100">
+                    <div className="w-full text-center py-1 text-xs bg-green-200">
                       Very High
                     </div>
                   </div>
@@ -218,7 +241,7 @@ export default function ProgramCard({ card }) {
           <div className="h-[46px]">
             <button
               className="w-full group-hover:bg-[#1f5fc7] group-hover:text-white h-full rounded-lg text-base border-gray-300 border-2 text-gray-600 bg-secondary hover:bg-[#1f5fc7] hover:text-white transform transition-all ease-in-out font-semibold cursor-pointer"
-              onClick={() => navigate("../program-detail")}
+              onClick={() => openProgramDetail(card)}
             >
               Explore Programs
             </button>

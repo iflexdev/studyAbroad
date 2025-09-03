@@ -11,6 +11,7 @@ import {
   countryList,
   courseLevel,
   programsCardData,
+  programsDetail,
   programsList,
   universityList,
 } from "./ApiCalls.api";
@@ -52,7 +53,6 @@ export const getAllCountries = async () => {
     const resp = await countryList();
     if (resp.status === 200) {
       const data = resp?.data;
-      console.log("countries data: ", data);
       return data;
     }
   } catch (error) {
@@ -68,7 +68,6 @@ export const getAllUniversities = async () => {
     const resp = await universityList();
     if (resp.status === 200) {
       const data = resp?.data;
-      console.log("universities data: ", data);
       return data;
     }
   } catch (error) {
@@ -84,7 +83,6 @@ export const getAllCourseLevel = async () => {
     const resp = await courseLevel();
     if (resp.status === 200) {
       const data = resp?.data;
-      console.log("course level data: ", data);
       return data;
     }
   } catch (error) {
@@ -100,7 +98,6 @@ export const getAllProgramTypes = async () => {
     const resp = await programsList();
     if (resp.status === 200) {
       const data = resp?.data;
-      console.log("program types data: ", data);
       return data;
     }
   } catch (error) {
@@ -117,10 +114,25 @@ export const getAllProgramCards = async (setAlert) => {
     if (resp.status === 200) {
     //   handleSuccess(resp, setAlert, "Program data fetched successfully.");
       const data = resp?.data;
-      console.log("program cards data: ", data);
       return data;
     }
   } catch (error) {
     return handleError(error, setAlert), console.log("Program data error: ", error);
+  }
+};
+
+/* -------------------------------------------------------------------------- */
+/*                  Program cards data list API call handler                  */
+/* -------------------------------------------------------------------------- */
+export const getAllProgramsDetail = async (id, setAlert) => {
+  try {
+    const resp = await programsDetail(id);
+    if (resp.status === 200) {
+    //   handleSuccess(resp, setAlert, "Program data fetched successfully.");
+      const data = resp?.data;
+      return data;
+    }
+  } catch (error) {
+    return handleError(error, setAlert)
   }
 };

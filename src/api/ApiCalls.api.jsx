@@ -26,3 +26,4 @@ export const programsList = () => axiosInstance.get("program-list");
 
 /* --------------------- fetch all programs GET request -------------------- */
 export const programsCardData = () => axiosInstance.get("all-programs ");
+export const programsDetail = (id) => axiosInstance.get(`programs/${id}`);
