@@ -48,7 +48,7 @@ export default function TabSection({programDetail}) {
         {activeTab === "Overview" && <Overview programDetail={programDetail} />}
         {activeTab === "Programs" && <Programs />}
         {activeTab === "Study Abroad Services" && <Services />}
-        {activeTab === "Gallery" && <Gallery images={programDetail?.images} />}
+        {activeTab === "Gallery" && <Gallery gallery={programDetail} />}
         {activeTab === "Review" && <Review Review={programDetail?.Review} />}
       </div>
     </>
