@@ -17,7 +17,7 @@ export default function Gallery({images}) {
   };
   return (
     <>
-      <div className="flex flex-wrap gap-[30px] ">
+      <div className="flex flex-wrap gap-[30px] max-h-[111vh] overflow-auto no-scrollbar">
         {(images || []).map((url, index) => (
           <div
             key={index}
