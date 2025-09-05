@@ -7,7 +7,7 @@ export default function BreadcrumbComponent() {
   const pathnames = location.pathname.split("/").filter(Boolean);
 
 const breadcrumbLabels = {
-  "searchPrograms": "Search Programs",
+  "search-programs": "Search Programs",
   "university-detail": "University Detail",
   "program-detail": "Program Detail",
 };

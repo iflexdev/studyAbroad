@@ -10,10 +10,13 @@ import React from "react";
 import {
   countryList,
   courseLevel,
+  getExamList,
   programsCardData,
   programsDetail,
   programsList,
+  storeWalkinDetails,
   universityList,
+  verifyStudentDetails,
 } from "./ApiCalls.api";
 
 /* -------------------------------------------------------------------------- */
@@ -112,7 +115,7 @@ export const getAllProgramCards = async (setAlert) => {
   try {
     const resp = await programsCardData();
     if (resp.status === 200) {
-    //   handleSuccess(resp, setAlert, "Program data fetched successfully.");
+      //   handleSuccess(resp, setAlert, "Program data fetched successfully.");
       const data = resp?.data;
       return data;
     }
@@ -128,11 +131,63 @@ export const getAllProgramsDetail = async (id, setAlert) => {
   try {
     const resp = await programsDetail(id);
     if (resp.status === 200) {
-    //   handleSuccess(resp, setAlert, "Program data fetched successfully.");
+      //   handleSuccess(resp, setAlert, "Program data fetched successfully.");
       const data = resp?.data;
       return data;
     }
   } catch (error) {
     return handleError(error, setAlert)
+  }
+};
+
+/* -------------------------------------------------------------------------- */
+/*                  Verify Student detail API call handler                  */
+/* -------------------------------------------------------------------------- */
+export const postVerifyStudentDetails = async (setAlert, email, mobile, onProceed) => {
+  try {
+    const resp = await verifyStudentDetails(email, mobile);
+    if (resp.status === 200) {
+      setAlert({
+        type: "success",
+        message: 'email is verified successfully',
+      });
+      setTimeout(() => {
+        onProceed();
+      }, 500);
+      const data = resp?.data;
+      return data;
+    }
+  } catch (error) {
+    return handleError(error, setAlert)
+  }
+};
+
+/* -------------------------------------------------------------------------- */
+/*                  Store Walkin Details detail API call handler                  */
+/* -------------------------------------------------------------------------- */
+export const postStoreWalkinDetails = async (formData, setAlert) => {
+  try {
+    const resp = await storeWalkinDetails(formData);
+    if (resp.status === 200) {
+      const data = resp?.data;
+      return data;
+    }
+  } catch (error) {
+    return handleError(error, setAlert)
+  }
+};
+
+/* -------------------------------------------------------------------------- */
+/*                  Store Walkin Details detail API call handler                  */
+/* -------------------------------------------------------------------------- */
+export const fetchExamList = async () => {
+  try {
+    const resp = await getExamList();
+    if (resp.status === 200) {
+      const data = resp?.data;
+      return data;
+    }
+  } catch (error) {
+    return handleError(error)
   }
 };
