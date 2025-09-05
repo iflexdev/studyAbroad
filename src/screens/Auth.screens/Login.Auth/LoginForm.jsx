@@ -13,8 +13,8 @@ const LoginForm = ({ onProceed, setEmail, email, mobile, setMobile }) => {
       newErrors.email = "Enter a valid email address";
 
     if (!mobile) newErrors.mobile = "Mobile number is required";
-    else if (!/^(?:\+91|91)?(?!1234567890)(?!9876543210)(?!([0-9])\1{9})[6-9][0-9]{9}$/.test(mobile))
-      newErrors.mobile = "Enter a valid 10 digit mobile number";
+    else if (!/^\d+$/.test(mobile))
+      newErrors.mobile = "Enter a valid mobile number";
 
     return newErrors;
   };
@@ -73,16 +73,23 @@ const LoginForm = ({ onProceed, setEmail, email, mobile, setMobile }) => {
                 Mobile Number
               </label>
               <div className="flex">
-                <span className="flex items-center px-3 bg-gray-100 border border-r-0 border-gray-300 rounded-l-lg text-gray-600 text-lg">
-                  +91
-                </span>
+                <select
+                  className="flex items-center px-3 bg-gray-100 border border-r-0 border-gray-300 rounded-l-lg text-gray-600 text-lg focus:outline-none"
+                  defaultValue="+91"
+                >
+                  <option value="+91">+91</option>
+                  <option value="+1">+1</option>
+                  <option value="+44">+44</option>
+                  <option value="+61">+61</option>
+                  <option value="+81">+81</option>
+                </select>
                 <input
                   type="text"
                   value={mobile}
                   onChange={(e) =>
                     setMobile(e.target.value.replace(/\D/g, ""))
                   }
-                  maxLength="10"
+                  // maxLength="10"
                   placeholder="9815344898"
                   className="flex-1 px-3 py-2 border border-gray-300 rounded-r-lg focus:outline-none focus:ring focus:ring-blue-400"
                   required
