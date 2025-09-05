@@ -3,7 +3,7 @@ import LoginForm from "./LoginForm";
 import StudentForm from "./StudentForm";
 
 export default function Login() {
-  const [step, setStep] = useState(2);
+  const [step, setStep] = useState(1);
   const [email, setEmail] = useState("");
   const [mobile, setMobile] = useState("");
 
