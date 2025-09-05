@@ -1,9 +1,61 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { CalendarDays, MapPin, Star, UsersRound } from "lucide-react";
 import ApplyToProgram from "./ApplyToProgram.ProgramDetail";
+import VideoPlayer from "../../../utils/defaults/videoPlayer.VideoDoc";
 
 export default function Banner({ programDetail }) {
   const [isOpenToApply, setIsOpenToApply] = useState(false);
+
+
+  /* -------------------------------------------------------------------------- */
+  /*                               video provider                               */
+  /* -------------------------------------------------------------------------- */
+  const getProvider = (url) => {
+    if (
+      url?.includes("youtube.com") ||
+      url?.includes("youtu.be") ||
+      url?.includes("youtube")
+    ) {
+      return "youtube";
+    } else if (
+      url?.includes("vimeo.com") ||
+      url?.includes("player.vimeo.com") ||
+      url?.includes("vimeo")
+    ) {
+      return "vimeo";
+    } else {
+      return "video";
+    }
+  };
+
+
+  /* -------------------------------------------------------------------------- */
+  /*                          video and document viewer                         */
+  /* -------------------------------------------------------------------------- */
+  const handleLesson = useMemo(() => {
+    const videoUrl = programDetail?.video?.[0];
+    if (!videoUrl) {
+      return (
+        <img
+          src={programDetail?.images?.[3]}
+          alt=""
+          className="w-full h-full object-cover"
+        />
+      );
+    }
+    else {
+      const provider = getProvider(videoUrl ? 'https://www.youtube.com/watch?v=DxIr9ntpB88' : "");
+      return (
+        <VideoPlayer
+          source={{
+            type: provider,
+            src: videoUrl ? 'https://www.youtube.com/watch?v=DxIr9ntpB88' : "",
+          }}
+        />
+      );
+    }
+  }, [programDetail]);
+
   return (
     <>
       <div className="programDetailsBannerBG tracking-wide">
@@ -91,14 +143,15 @@ export default function Banner({ programDetail }) {
               </div>
             </div>
             <div className="row-span-1 w-[487px] h-[400px] hover:scale-105 transition duration-500 border">
-              <video
+              {/* <video
                 src='https://avtshare01.rz.tu-ilmenau.de/avt-vqdb-uhd-1/test_1/segments/bigbuck_bunny_8bit_200kbps_360p_60.0fps_h264.mp4'
                 controls
                 autoPlay
                 muted
                 loop   // optional: makes it replay continuously
                 className="w-full h-full object-cover"
-              />
+              /> */}
+              {handleLesson}
             </div>
           </div>
         </div>

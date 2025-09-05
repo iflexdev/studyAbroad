@@ -8,7 +8,7 @@ export default function Layout() {
   const location = useLocation();
 
   const breadcrumbPath = [
-    "/searchPrograms",
+    "/search-programs",
     "/program-detail",
     "/university-detail",
   ];

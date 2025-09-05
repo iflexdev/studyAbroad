@@ -57,7 +57,7 @@ export default function Filter({
     Budget: applicationFeesSorted
   };
 
-
+  
   useEffect(() => {
     if (callFilterFunction) {
       filterPrograms(callFilterFunction?.label, callFilterFunction?.id, callFilterFunction?.isChecked, callFilterFunction?.item);
@@ -171,9 +171,10 @@ export default function Filter({
   /* -------------------------------------------------------------------------- */
   const toggleAccordion2 = (title, length) => {
     setOpen((prev) => {
-      if (prev.includes(title) && length == 0) {
-        return prev.filter((item) => item !== title);
-      } else if (!prev.includes(title) && length > 0) {
+      // if (prev.includes(title) && length == 0) {
+      //   return prev.filter((item) => item !== title);
+      // } 
+      if (!prev.includes(title) && length > 0) {
         return [...prev, title];
       }
       else {
@@ -396,7 +397,6 @@ export default function Filter({
           ? filteredData || []
           : programCards);
       }
-
     };
 
     if (title === "Countries") {

@@ -46,7 +46,7 @@ export default function HeaderDashboard() {
   ];
 
   const handleSearch = () => {
-    navigate("/searchPrograms");
+    navigate("/dashboard/search-programs");
   };
 
   return (
@@ -59,7 +59,7 @@ export default function HeaderDashboard() {
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-10">
                   <div className="">
-                    <Link to="/">
+                    <Link to="/dashboard">
                       <Logo name="logo" alt="study abroad Logo" className="w-fit" />
                     </Link>
                   </div>

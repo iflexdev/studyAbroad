@@ -97,8 +97,7 @@ export default function ProgramCard({ card, setUpdateProgramID }) {
       return price + ' INR';
     }
   }
-
-  // navigate("../program-detail")
+  
   function openProgramDetail(item) {
     navigate(`../program-detail/${item?.id}`, {
       state: item, // passing whole item

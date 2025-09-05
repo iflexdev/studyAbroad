@@ -1,24 +1,75 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import ImageLightbox from "../../../../utils/defaultHandlers/ImageViewer";
+import VideoPlayer from "../../../../utils/defaults/videoPlayer.VideoDoc";
 
 // const imageUrls = Array.from({ length: 10 }).map(
 //   () => "https://images.unsplash.com/20/cambridge.JPG?fm=jpg&q=60&w=3000"
 // );
 
-export default function Gallery({images}) {
+export default function Gallery({ gallery }) {
   const [open, setOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
-
-  const slides = images.map((url) => ({ src: url }));
+  const slides = gallery?.images?.map((url) => ({ src: url }));
 
   const handleImageOpen = (index) => {
     setCurrentIndex(index);
     setOpen(true);
   };
+
+
+  /* -------------------------------------------------------------------------- */
+  /*                               video provider                               */
+  /* -------------------------------------------------------------------------- */
+  const getProvider = (url) => {
+    if (
+      url?.includes("youtube.com") ||
+      url?.includes("youtu.be") ||
+      url?.includes("youtube")
+    ) {
+      return "youtube";
+    } else if (
+      url?.includes("vimeo.com") ||
+      url?.includes("player.vimeo.com") ||
+      url?.includes("vimeo")
+    ) {
+      return "vimeo";
+    } else {
+      return "video";
+    }
+  };
+
+
+  /* -------------------------------------------------------------------------- */
+  /*                          video and document viewer                         */
+  /* -------------------------------------------------------------------------- */
+  const handleLesson = useMemo(() => {
+    const videoUrl = gallery?.video?.[0];
+    if (!videoUrl) {
+      return (
+        <img
+          src={gallery?.images?.[3]}
+          alt=""
+          className="w-full h-full object-cover"
+        />
+      );
+    }
+    else {
+      const provider = getProvider(videoUrl ? 'https://www.youtube.com/watch?v=DxIr9ntpB88' : "");
+      return (
+        <VideoPlayer
+          source={{
+            type: provider,
+            src: videoUrl ? 'https://www.youtube.com/watch?v=DxIr9ntpB88' : "",
+          }}
+        />
+      );
+    }
+  }, [gallery]);
+
   return (
     <>
-      <div className="flex flex-wrap gap-[30px] ">
-        {(images || []).map((url, index) => (
+      <div className="flex flex-wrap gap-[30px] max-h-[111vh] overflow-auto no-scrollbar">
+        {(gallery?.images || []).map((url, index) => (
           <div
             key={index}
             onClick={() => handleImageOpen(index)}
@@ -29,6 +80,15 @@ export default function Gallery({images}) {
               alt={`Gallery ${index + 1}`}
               className="w-full h-full object-cover"
             />
+          </div>
+        ))}
+
+        {(gallery?.video || []).map((_, index) => (
+          <div
+            key={index}
+            className="h-[227px] w-[332px] rounded-[12px] cursor-pointer overflow-hidden hover:scale-105 transition duration-500 border"
+          >
+            {handleLesson}
           </div>
         ))}
       </div>

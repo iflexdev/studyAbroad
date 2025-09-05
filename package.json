@@ -23,11 +23,13 @@
     "clsx": "^2.1.1",
     "jwt-decode": "^4.0.0",
     "lucide-react": "^0.525.0",
+    "plyr": "^3.8.3",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-icons": "^5.5.0",
     "react-router": "^7.6.3",
     "react-router-dom": "^7.7.0",
+    "react-select": "^5.10.2",
     "tailwind-merge": "^3.3.1",
     "tailwindcss-scrollbar": "^0.1.0",
     "yet-another-react-lightbox": "^3.25.0"
