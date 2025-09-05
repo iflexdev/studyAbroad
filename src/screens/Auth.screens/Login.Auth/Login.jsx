@@ -6,6 +6,7 @@ export default function Login() {
   const [step, setStep] = useState(1);
   const [email, setEmail] = useState("");
   const [mobile, setMobile] = useState("");
+  const [countryCode, setCountryCode] = useState("+91");
 
   return (
     <div>
@@ -16,12 +17,16 @@ export default function Login() {
           email={email}
           mobile={mobile}
           setMobile={setMobile}
+          countryCode={countryCode}
+          setCountryCode={setCountryCode}
         />
       )}
       {step === 2 && (
         <StudentForm
           email={email}
           mobile={mobile}
+          setCountryCode={setCountryCode}
+          countryCode={countryCode}
           onBack={() => setStep(1)} // 👈 back/loginform 
         />
       )}

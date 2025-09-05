@@ -3,7 +3,7 @@ import Select from "react-select";
 import { fetchExamList, postStoreWalkinDetails } from "../../../api/ApiCallHandler.api";
 import { useNavigate } from "react-router";
 
-export default function StudentForm({ email, mobile, onBack }) {
+export default function StudentForm({ email, mobile, onBack, countryCode, setCountryCode }) {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -214,7 +214,9 @@ export default function StudentForm({ email, mobile, onBack }) {
               </span> */}
               <select
                 className="flex items-center px-3 bg-gray-100 border border-r-0 border-gray-300 rounded-l-lg text-gray-600 text-lg focus:outline-none"
-                defaultValue="+91"
+                defaultValue={countryCode}
+                value={countryCode}
+                onChange={(e) => setCountryCode(e.target.value)}
               >
                 <option value="+91">+91</option>
                 <option value="+1">+1</option>

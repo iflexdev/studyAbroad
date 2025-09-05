@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import { postVerifyStudentDetails } from "../../../api/ApiCallHandler.api";
 import Alert from "../../../utils/defaults/Alert.button";
 
-const LoginForm = ({ onProceed, setEmail, email, mobile, setMobile }) => {
+const LoginForm = ({ onProceed, setEmail, email, mobile, setMobile, countryCode, setCountryCode }) => {
   const [errors, setErrors] = useState({});
   const [alert, setAlert] = useState();
+  // const [countryCode, setCountryCode] = useState("+91");
 
   const validate = () => {
     let newErrors = {};
@@ -75,7 +76,8 @@ const LoginForm = ({ onProceed, setEmail, email, mobile, setMobile }) => {
               <div className="flex">
                 <select
                   className="flex items-center px-3 bg-gray-100 border border-r-0 border-gray-300 rounded-l-lg text-gray-600 text-lg focus:outline-none"
-                  defaultValue="+91"
+                  value={countryCode}
+                  onChange={(e) => setCountryCode(e.target.value)}
                 >
                   <option value="+91">+91</option>
                   <option value="+1">+1</option>
@@ -83,6 +85,7 @@ const LoginForm = ({ onProceed, setEmail, email, mobile, setMobile }) => {
                   <option value="+61">+61</option>
                   <option value="+81">+81</option>
                 </select>
+
                 <input
                   type="text"
                   value={mobile}
