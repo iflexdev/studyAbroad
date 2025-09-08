@@ -51,3 +51,8 @@ export const storeWalkinDetails = (formData) =>
 /* --------------------- fetch exam list GET request -------------------- */
 export const getExamList = () => axiosInstance.get("exam-list");
 
+/* --------------------- verify OTP post request -------------------- */
+export const verifyOTP = (mobile, otp) => axiosInstance.post(`verify-moblie-otp?mobile_no=${mobile}&otp=${otp}`);
+
+/* --------------------- resend OTP post request -------------------- */
+export const resendMobileOtp = (mobile) => axiosInstance.post(`resend-moblie-otp?mobile_no=${mobile}`);

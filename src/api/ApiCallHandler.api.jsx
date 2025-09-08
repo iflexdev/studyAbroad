@@ -14,8 +14,10 @@ import {
   programsCardData,
   programsDetail,
   programsList,
+  resendMobileOtp,
   storeWalkinDetails,
   universityList,
+  verifyOTP,
   verifyStudentDetails,
 } from "./ApiCalls.api";
 
@@ -59,7 +61,7 @@ export const getAllCountries = async () => {
       return data;
     }
   } catch (error) {
-    return handleError(error), console.log("countries error: ", error);
+    return handleError(error);
   }
 };
 
@@ -74,7 +76,7 @@ export const getAllUniversities = async () => {
       return data;
     }
   } catch (error) {
-    return handleError(error), console.log("universities error: ", error);
+    return handleError(error);
   }
 };
 
@@ -89,7 +91,7 @@ export const getAllCourseLevel = async () => {
       return data;
     }
   } catch (error) {
-    return handleError(error), console.log("course level error: ", error);
+    return handleError(error);
   }
 };
 
@@ -104,7 +106,7 @@ export const getAllProgramTypes = async () => {
       return data;
     }
   } catch (error) {
-    return handleError(error), console.log("program types error: ", error);
+    return handleError(error);
   }
 };
 
@@ -120,7 +122,7 @@ export const getAllProgramCards = async (setAlert) => {
       return data;
     }
   } catch (error) {
-    return handleError(error, setAlert), console.log("Program data error: ", error);
+    return handleError(error, setAlert);
   }
 };
 
@@ -189,5 +191,45 @@ export const fetchExamList = async () => {
     }
   } catch (error) {
     return handleError(error)
+  }
+};
+
+/* -------------------------------------------------------------------------- */
+/*                  Store Walkin Details detail API call handler              */
+/* -------------------------------------------------------------------------- */
+export const handleVerifyOTP = async (mobile, otp, setAlert, setIsLoading, onProceed, setIsResend) => {
+  try {
+    setIsLoading(true);
+    const resp = await verifyOTP(mobile, otp);
+    if (resp.status === 200) {
+      setIsLoading(false);
+      onProceed();
+      const data = resp?.data;
+      return data;
+    }
+  } catch (error) {
+    setIsLoading(false);
+    setIsResend(true);
+    setAlert({ type: "error", message: error?.response?.data?.msg});
+    return handleError(error);
+  }
+};
+
+/* -------------------------------------------------------------------------- */
+/*                           Resend Otp API call handler                      */
+/* -------------------------------------------------------------------------- */
+export const handleResendOtp = async (mobile, setAlert, setIsLoading) => {
+  try {
+    setIsLoading(true);
+    const resp = await resendMobileOtp(mobile);
+    if (resp.status === 200) {
+      setIsLoading(false);
+      const data = resp?.data;
+      return data;
+    }
+  } catch (error) {
+    setIsLoading(false);
+    // setAlert({ type: "error", message: error?.response?.data?.msg});
+    return handleError(error, setAlert);
   }
 };

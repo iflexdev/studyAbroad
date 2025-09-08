@@ -1,6 +1,7 @@
 import { useState } from "react";
 import LoginForm from "./LoginForm";
 import StudentForm from "./StudentForm";
+import OtpVerification from "./OtpVerification";
 
 export default function Login() {
   const [step, setStep] = useState(1);
@@ -22,6 +23,13 @@ export default function Login() {
         />
       )}
       {step === 2 && (
+        <OtpVerification
+          onProceed={() => setStep(3)}
+          mobile={mobile}
+          onBack={() => setStep(1)} // 👈 back/loginform 
+        />
+      )}
+      {step === 3 && (
         <StudentForm
           email={email}
           mobile={mobile}
