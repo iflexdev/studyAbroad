@@ -73,12 +73,12 @@ export default function Gallery({ gallery }) {
           <div
             key={index}
             onClick={() => handleImageOpen(index)}
-            className="h-[227px] w-[332px] rounded-[12px] cursor-pointer overflow-hidden hover:scale-105 transition duration-500 border"
+            className="h-[227px] w-[332px] rounded-[12px] cursor-pointer overflow-hidden border"
           >
             <img
               src={url || "https://images.unsplash.com/20/cambridge.JPG?fm=jpg&q=60&w=3000"}
               alt={`Gallery ${index + 1}`}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover hover:scale-105 transition duration-500"
             />
           </div>
         ))}
@@ -86,7 +86,7 @@ export default function Gallery({ gallery }) {
         {(gallery?.video || []).map((_, index) => (
           <div
             key={index}
-            className="h-[227px] w-[332px] rounded-[12px] cursor-pointer overflow-hidden hover:scale-105 transition duration-500 border"
+            className="h-[227px] w-[332px] rounded-[12px] cursor-pointer overflow-hidden border"
           >
             {handleLesson}
           </div>

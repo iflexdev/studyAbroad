@@ -131,7 +131,7 @@ const VideoPlayer = ({ source, onTimeUpdate }) => {
   return (
     <div
       ref={containerRef}
-      className="w-full h-full overflow-hidden bg-black [&>.plyr]:w-full [&>.plyr]:h-full"
+      className="w-full h-full overflow-hidden bg-black [&>.plyr]:w-full [&>.plyr]:h-full hover:scale-105 transition duration-500"
     />
   );
 };
