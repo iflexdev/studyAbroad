@@ -383,7 +383,7 @@ export default function StudentForm({ email, mobile, onBack, countryCode, setCou
                 Close
               </button>
               <a
-                href="../dashboard"
+                href="../"
                 className="bg-gray-200 text-gray-800 px-8 py-3 rounded-lg font-medium hover:bg-gray-300 transition"
               >
                 Explore

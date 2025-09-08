@@ -10,15 +10,11 @@ import Login from "../screens/Auth.screens/Login.Auth/Login";
 export default function AppRoutes() {
   const router = createBrowserRouter([
     {
-      path: "/",
-      element: <Navigate to="student-enquiry" replace />,
-    },
-    {
       path: "student-enquiry",
       element: <Login />,
     },
     {
-      path: "dashboard",
+      path: "/",
       element: <Layout />,
       children: [
         {
