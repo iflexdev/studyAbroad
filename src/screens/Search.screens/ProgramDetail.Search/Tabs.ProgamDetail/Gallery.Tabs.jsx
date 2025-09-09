@@ -2,10 +2,6 @@ import React, { useMemo, useState } from "react";
 import ImageLightbox from "../../../../utils/defaultHandlers/ImageViewer";
 import VideoPlayer from "../../../../utils/defaults/videoPlayer.VideoDoc";
 
-// const imageUrls = Array.from({ length: 10 }).map(
-//   () => "https://images.unsplash.com/20/cambridge.JPG?fm=jpg&q=60&w=3000"
-// );
-
 export default function Gallery({ gallery }) {
   const [open, setOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -54,12 +50,12 @@ export default function Gallery({ gallery }) {
       );
     }
     else {
-      const provider = getProvider(videoUrl ? 'https://www.youtube.com/watch?v=DxIr9ntpB88' : "");
+      const provider = getProvider(videoUrl ? 'https://www.youtube.com/watch?v=o5xOmNabezQ' : "");
       return (
         <VideoPlayer
           source={{
             type: provider,
-            src: videoUrl ? 'https://www.youtube.com/watch?v=DxIr9ntpB88' : "",
+            src: videoUrl ? 'https://www.youtube.com/watch?v=o5xOmNabezQ' : "",
           }}
         />
       );

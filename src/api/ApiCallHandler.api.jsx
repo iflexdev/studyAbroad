@@ -10,11 +10,13 @@ import React from "react";
 import {
   countryList,
   courseLevel,
+  enrollProgram,
   getExamList,
   programsCardData,
   programsDetail,
   programsList,
   resendMobileOtp,
+  sendEnquiry,
   storeWalkinDetails,
   universityList,
   verifyOTP,
@@ -231,5 +233,48 @@ export const handleResendOtp = async (mobile, setAlert, setIsLoading) => {
     setIsLoading(false);
     // setAlert({ type: "error", message: error?.response?.data?.msg});
     return handleError(error, setAlert);
+  }
+};
+
+/* -------------------------------------------------------------------------- */
+/*                           Resend Otp API call handler                      */
+/* -------------------------------------------------------------------------- */
+export const handleEnrollProgram = async (formData, setAlert, setIsOpenToApply, setisLoading) => {
+  try {
+    setisLoading(true);
+    const resp = await enrollProgram(formData);
+    if (resp.status === 200) {
+      setIsOpenToApply(false);
+      handleSuccess(resp, setAlert, "Form submitted successfully.");
+      const data = resp?.data;
+      return data;
+    }
+  } catch (error) {
+    return handleError(error, setAlert);
+  }
+  finally{
+    setisLoading(false);
+  }
+};
+
+
+/* -------------------------------------------------------------------------- */
+/*                           send Enquiry API call handler                      */
+/* -------------------------------------------------------------------------- */
+export const handleSendEnquiry = async (formData, setAlert, setisLoading, setFormData) => {
+  try {
+    setisLoading(true);
+    const resp = await sendEnquiry(formData);
+    if (resp.status === 200) {
+      handleSuccess(resp, setAlert, "Form submitted successfully.");
+      setFormData({name: '', email: '', mobile_no: '', message: ''});
+      const data = resp?.data;
+      return data;
+    }
+  } catch (error) {
+    return handleError(error, setAlert);
+  }
+  finally{
+    setisLoading(false);
   }
 };

@@ -2,10 +2,19 @@ import React, { useMemo, useState } from "react";
 import { CalendarDays, MapPin, Star, UsersRound } from "lucide-react";
 import ApplyToProgram from "./ApplyToProgram.ProgramDetail";
 import VideoPlayer from "../../../utils/defaults/videoPlayer.VideoDoc";
+import ImageLightbox from "../../../utils/defaultHandlers/ImageViewer";
 
-export default function Banner({ programDetail }) {
+export default function Banner({ programDetail, setAlert }) {
   const [isOpenToApply, setIsOpenToApply] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [open, setOpen] = useState(false);
+  const slides = programDetail?.images?.map((url) => ({ src: url }));
+  const imgListLength = programDetail?.images?.length;
 
+  const handleImageOpen = () => {
+    setCurrentIndex(0);
+    setOpen(true);
+  };
 
   /* -------------------------------------------------------------------------- */
   /*                               video provider                               */
@@ -44,12 +53,12 @@ export default function Banner({ programDetail }) {
       );
     }
     else {
-      const provider = getProvider(videoUrl ? 'https://www.youtube.com/watch?v=DxIr9ntpB88' : "");
+      const provider = getProvider(videoUrl ? 'https://www.youtube.com/watch?v=o5xOmNabezQ' : "");
       return (
         <VideoPlayer
           source={{
             type: provider,
-            src: videoUrl ? 'https://www.youtube.com/watch?v=DxIr9ntpB88' : "",
+            src: videoUrl ? 'https://www.youtube.com/watch?v=o5xOmNabezQ' : "",
           }}
         />
       );
@@ -107,7 +116,7 @@ export default function Banner({ programDetail }) {
             </div>
             <button
               onClick={() => setIsOpenToApply(!isOpenToApply)}
-              className={`primary h-[48px] px-[38px]  text-[20px] font-semibold text-white rounded-full hover:scale-105 primary-hover transition duration-300`}
+              className={`primary h-[48px] px-[38px]  text-[20px] font-semibold text-white rounded-full hover:scale-105 primary-hover transition duration-300 cursor-pointer`}
             >
               Enroll Now
             </button>
@@ -120,10 +129,10 @@ export default function Banner({ programDetail }) {
                 className="w-full h-full object-cover"
               />
               <span
-                onClick={() => { }}
+                onClick={handleImageOpen}
                 className="absolute bottom-2 right-2 transform transition-transform duration-300 group-hover:scale-115 bg-gray-300 h-[41px] w-[41px] flex items-center justify-center rounded-full text-base font-semibold hover:bg-white cursor-pointer"
               >
-                +5
+                +{imgListLength-1}
               </span>
             </div>
             <div className="row-span-2 w-[364px] flex flex-col gap-y-[16px]">
@@ -157,7 +166,14 @@ export default function Banner({ programDetail }) {
         </div>
       </div>
       {/* -----------------------------Apply button popup----------------------------- */}
-      {isOpenToApply && <ApplyToProgram setIsOpenToApply={setIsOpenToApply} isOpenToApply={isOpenToApply} />}
+      {isOpenToApply && <ApplyToProgram setIsOpenToApply={setIsOpenToApply} isOpenToApply={isOpenToApply} programDetail={programDetail} setAlert={setAlert} />}
+
+      <ImageLightbox
+        slides={slides}
+        open={open}
+        onClose={() => setOpen(false)}
+        index={currentIndex}
+      />
     </>
   );
 }
