@@ -8,6 +8,7 @@ import {
   getAllProgramTypes,
   getAllUniversities,
 } from "../../api/ApiCallHandler.api";
+import Loader from "../../components/ui/Loader";
 
 export default function SearchLayout() {
   /* ----------------------------- filters states ----------------------------- */
@@ -111,11 +112,7 @@ export default function SearchLayout() {
         </div>
 
         {/* Loader Overlay */}
-        {isLoading && (
-          <div className="absolute inset-0 flex items-center justify-center bg-black/50">
-            <div className="w-16 h-16 border-7 border-blue-400 border-t-transparent rounded-full animate-spin"></div>
-          </div>
-        )}
+        {isLoading && (<Loader />)}
       </div>
     </>
   );

@@ -6,9 +6,8 @@ import CounsellorsFrom from "../../../utils/defaultHandlers/CounsellorsFrom";
 import Alert from "../../../utils/defaults/Alert.button";
 import ApplyToProgram from "./ApplyToProgram.ProgramDetail";
 
-export default function PriceCard({ programDetail }) {
+export default function PriceCard({ programDetail, alert, setAlert }) {
 
-  const [alertData, setAlert] = useState(null);
   const [isOpenToApply, setIsOpenToApply] = useState(false);
   /* ------------------------ all price and icons array ----------------------- */
   const courseURL = window.location.href;
@@ -96,7 +95,7 @@ export default function PriceCard({ programDetail }) {
               <Icons name='clockHours' className="w-[35px] h-[35px]" />
               <div className="flex flex-col">
                 <p className="font-medium text-xl leading-[22px]">
-                  {programDetail.total_duration}
+                  {programDetail?.total_duration}
                 </p>
                 <p className="font-medium text-base leading-[22px] text-gray-500">
                   Course Duration
@@ -155,15 +154,15 @@ export default function PriceCard({ programDetail }) {
           </div>
         </div>
         {/*------------------------------- Counsellors form -------------------------------*/}
-        <CounsellorsFrom />
+        <CounsellorsFrom setAlert={setAlert} programDetail={programDetail}/>
       </div>
 
-      {isOpenToApply && <ApplyToProgram setIsOpenToApply={setIsOpenToApply} isOpenToApply={isOpenToApply} />}
+      {isOpenToApply && <ApplyToProgram setIsOpenToApply={setIsOpenToApply} isOpenToApply={isOpenToApply} programDetail={programDetail} setAlert={setAlert} />}
 
-      {alertData && (
+      {alert && (
         <Alert
-          type={alertData.type}
-          message={alertData.message}
+          type={alert.type}
+          message={alert.message}
           onClose={() => setAlert(null)}
         />
       )}

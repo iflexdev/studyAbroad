@@ -56,3 +56,13 @@ export const verifyOTP = (mobile, otp) => axiosInstance.post(`verify-moblie-otp?
 
 /* --------------------- resend OTP post request -------------------- */
 export const resendMobileOtp = (mobile) => axiosInstance.post(`resend-moblie-otp?mobile_no=${mobile}`);
+
+/* --------------------- enroll program post request -------------------- */
+export const enrollProgram = (formData) => axiosInstance.post(`enroll`, null, {
+    params: formData,
+});
+
+/* --------------------- send-enquiry post request -------------------- */
+export const sendEnquiry = (formData) => axiosInstance.post(`send-enquiry`, null, {
+    params: formData,
+});

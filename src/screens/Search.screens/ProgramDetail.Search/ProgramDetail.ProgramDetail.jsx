@@ -5,11 +5,12 @@ import PriceCard from "./PriceCard.ProgramDetail";
 import TabSection from "./TabSection.ProgamDetail";
 import { useParams } from "react-router";
 import { getAllProgramCards, getAllProgramsDetail } from "../../../api/ApiCallHandler.api";
+import Alert from "../../../utils/defaults/Alert.button";
 
 export default function ProgramDetail() {
   const [programDetail, setProgramDetail] = useState([]);
   const [programList, setProgramList] = useState([]);
-  const [alert, setAlert] = useState([]);
+  const [alert, setAlert] = useState();
   const { id } = useParams();
   const [updateProgramID, setUpdateProgramID] = useState(id);
 
@@ -39,7 +40,7 @@ export default function ProgramDetail() {
   return (
     <>
       {/*---------------------------- program detail Banner ----------------------------*/}
-      <Banner programDetail={programDetail} />
+      <Banner programDetail={programDetail} setAlert={setAlert} />
       {/*---------------------------- program detail Details ----------------------------*/}
       <div className="px-[148px] py-[34px]">
         <div className="flex gap-x-[72px]">
@@ -47,7 +48,7 @@ export default function ProgramDetail() {
             <TabSection programDetail={programDetail} />
           </div>
           <div className="w-[477px]">
-            <PriceCard programDetail={programDetail} />
+            <PriceCard programDetail={programDetail} alert={alert} setAlert={setAlert} />
           </div>
         </div>
         {/*---------------------------- similar program ----------------------------*/}
@@ -68,6 +69,14 @@ export default function ProgramDetail() {
           </div>
         }
       </div>
+
+      {alert && (
+        <Alert
+          type={alert.type}
+          message={alert.message}
+          onClose={() => setAlert(null)}
+        />
+      )}
     </>
   );
 }

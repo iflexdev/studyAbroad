@@ -186,7 +186,7 @@ export default function ProgramCard({ card, setUpdateProgramID }) {
             <div>
               <p className="text-gray-400 text-[13.46px]">Duration</p>
               <p className="font-medium text-base">
-                {card.total_duration || "not found"}
+                {card?.total_duration || "not found"}
               </p>
             </div>
           </div>
