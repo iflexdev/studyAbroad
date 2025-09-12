@@ -88,10 +88,10 @@ export default function Banner({ programDetail, setAlert }) {
                       <span>{programDetail?.rating || 'no rating'}</span>
                       <Star className="w-4" />
                     </p>
-                    <p className="flex items-center gap-1">
+                    {/* <p className="flex items-center gap-1">
                       &#x2772;<span>{programDetail?.ratingCount || '123456'}</span>
                       <span>rating</span>&#x2773;
-                    </p>
+                    </p> */}
                     {/* <p className="flex items-center gap-1">
                       <span>{programDetail?.studentsCount || '123456'}</span>
                       <span>students</span>
