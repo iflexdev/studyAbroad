@@ -5,10 +5,10 @@ import {
   InputOTPGroup,
   InputOTPSeparator,
   InputOTPSlot,
-} from "../../../components/ui/input-otp";
+} from "../../components/ui/input-otp";
 // import Alert from "../../../../components/ui/Alert.button";
-import { handleResendOtp, handleVerifyOTP } from "../../../api/ApiCallHandler.api";
-import Alert from "../../../utils/defaults/Alert.button";
+import { handleResendOtp, handleVerifyOTP } from "../../api/ApiCallHandler.api";
+import Alert from "../../utils/defaults/Alert.button";
 // import PageTitle from "../../../../utils/defaultHandlers/PageTitle.root";
 
 export default function OtpVerification({

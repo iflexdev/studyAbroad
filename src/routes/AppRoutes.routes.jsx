@@ -5,7 +5,7 @@ import SearchLayout from "../screens/Search.screens/SearchLayout.Search";
 import Layout from "../screens/Layout.Home";
 import ProgramDetail from "../screens/Search.screens/ProgramDetail.Search/ProgramDetail.ProgramDetail";
 import UniversityDetail from "../screens/Search.screens/UniversityDetail.Search/UniversityDetail";
-import Login from "../screens/Auth.screens/Login.Auth/Login";
+import Login from "../screens/StudentEnquiry.screens/Login";
 
 export default function AppRoutes() {
   const router = createBrowserRouter([

@@ -12,6 +12,7 @@ import {
   courseLevel,
   enrollProgram,
   getExamList,
+  getReviews,
   programsCardData,
   programsDetail,
   programsList,
@@ -259,7 +260,7 @@ export const handleEnrollProgram = async (formData, setAlert, setIsOpenToApply, 
 
 
 /* -------------------------------------------------------------------------- */
-/*                           send Enquiry API call handler                      */
+/*                           send Enquiry API call handler                    */
 /* -------------------------------------------------------------------------- */
 export const handleSendEnquiry = async (formData, setAlert, setisLoading, setFormData) => {
   try {
@@ -268,6 +269,26 @@ export const handleSendEnquiry = async (formData, setAlert, setisLoading, setFor
     if (resp.status === 200) {
       handleSuccess(resp, setAlert, "Form submitted successfully.");
       setFormData({name: '', email: '', mobile_no: '', message: ''});
+      const data = resp?.data;
+      return data;
+    }
+  } catch (error) {
+    return handleError(error, setAlert);
+  }
+  finally{
+    setisLoading(false);
+  }
+};
+
+
+/* -------------------------------------------------------------------------- */
+/*                           send Enquiry API call handler                    */
+/* -------------------------------------------------------------------------- */
+export const handleGetReviews = async (id, setAlert, setisLoading) => {
+  try {
+    setisLoading(true);
+    const resp = await getReviews(id);
+    if (resp.status === 200) {
       const data = resp?.data;
       return data;
     }

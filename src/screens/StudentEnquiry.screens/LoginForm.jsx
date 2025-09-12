@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { postVerifyStudentDetails } from "../../../api/ApiCallHandler.api";
-import Alert from "../../../utils/defaults/Alert.button";
+import { postVerifyStudentDetails } from "../../api/ApiCallHandler.api";
+import Alert from "../../utils/defaults/Alert.button";
 
 const LoginForm = ({ onProceed, setEmail, email, mobile, setMobile, countryCode, setCountryCode }) => {
   const [errors, setErrors] = useState({});

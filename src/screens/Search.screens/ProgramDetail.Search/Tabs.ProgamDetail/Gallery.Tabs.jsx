@@ -38,8 +38,8 @@ export default function Gallery({ gallery }) {
   /* -------------------------------------------------------------------------- */
   /*                          video and document viewer                         */
   /* -------------------------------------------------------------------------- */
-  const handleLesson = useMemo(() => {
-    const videoUrl = gallery?.video?.[0];
+  const handleLesson = (index) => {
+    const videoUrl = gallery?.videos?.[index];
     if (!videoUrl) {
       return (
         <img
@@ -50,17 +50,17 @@ export default function Gallery({ gallery }) {
       );
     }
     else {
-      const provider = getProvider(videoUrl ? 'https://www.youtube.com/watch?v=o5xOmNabezQ' : "");
+      const provider = getProvider(videoUrl ? videoUrl : "");
       return (
         <VideoPlayer
           source={{
             type: provider,
-            src: videoUrl ? 'https://www.youtube.com/watch?v=o5xOmNabezQ' : "",
+            src: videoUrl ? videoUrl : "",
           }}
         />
       );
     }
-  }, [gallery]);
+  };
 
   return (
     <>
@@ -79,12 +79,12 @@ export default function Gallery({ gallery }) {
           </div>
         ))}
 
-        {(gallery?.video || []).map((_, index) => (
+        {(gallery?.videos || []).map((_, index) => (
           <div
             key={index}
             className="h-[227px] w-[332px] rounded-[12px] cursor-pointer overflow-hidden border"
           >
-            {handleLesson}
+            {handleLesson(index)}
           </div>
         ))}
       </div>

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Select from "react-select";
-import { fetchExamList, postStoreWalkinDetails } from "../../../api/ApiCallHandler.api";
+import { fetchExamList, postStoreWalkinDetails } from "../../api/ApiCallHandler.api";
 import { useNavigate } from "react-router";
 
 export default function StudentForm({ email, mobile, onBack, countryCode, setCountryCode }) {

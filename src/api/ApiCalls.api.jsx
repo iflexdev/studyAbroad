@@ -26,7 +26,7 @@ export const programsList = () => axiosInstance.get("program-list");
 
 /* --------------------- fetch all programs GET request -------------------- */
 export const programsCardData = () => axiosInstance.get("all-programs ");
-export const programsDetail = (id) => axiosInstance.get(`programs/${id}`);
+export const programsDetail = (id) => axiosInstance.get(`programs?id=${id}`);
 
 /* --------------------- verify Student detail POST request -------------------- */
 export const verifyStudentDetails = (email, mobile) => axiosInstance.post(`verify-student-details?email=${email}&mobile_no=${mobile}`);
@@ -66,3 +66,7 @@ export const enrollProgram = (formData) => axiosInstance.post(`enroll`, null, {
 export const sendEnquiry = (formData) => axiosInstance.post(`send-enquiry`, null, {
     params: formData,
 });
+
+/* --------------------- get-reviews get request -------------------- */
+export const getReviews = (id) => axiosInstance.get(`get-reviews?program_id=${id}`);
+
