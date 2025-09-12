@@ -20,7 +20,8 @@ export default function ProgramDetail() {
   useEffect(() => {
     const fetchProgramsDetail = async () => {
       const programDetailData = await getAllProgramsDetail(id, setAlert);
-      setProgramDetail(programDetailData?.program);
+      
+      setProgramDetail(programDetailData?.program || []);
     }
     fetchProgramsDetail();
   }, [updateProgramID, id]);
@@ -45,7 +46,7 @@ export default function ProgramDetail() {
       <div className="px-[148px] py-[34px]">
         <div className="flex gap-x-[72px]">
           <div className="flex-1">
-            <TabSection programDetail={programDetail} />
+            <TabSection programDetail={programDetail} id={id}/>
           </div>
           <div className="w-[477px]">
             <PriceCard programDetail={programDetail} alert={alert} setAlert={setAlert} />

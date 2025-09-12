@@ -47,7 +47,7 @@ export default function ApplyToProgram({ setIsOpenToApply, programDetail, setAle
                 </abbr>
               </h2>
               <p className="text-lg font-normal leading-[18px]">
-                {programDetail?.program_name || '--'} - {programDetail?.total_duration} program
+                {programDetail?.program_name || '--'} - {programDetail?.total_duration || '--'} program
               </p>
             </div>
 

@@ -42,7 +42,7 @@ export default function Banner({ programDetail, setAlert }) {
   /*                          video and document viewer                         */
   /* -------------------------------------------------------------------------- */
   const handleLesson = useMemo(() => {
-    const videoUrl = programDetail?.video?.[0];
+    const videoUrl = programDetail?.videos?.[0];
     if (!videoUrl) {
       return (
         <img
@@ -53,12 +53,12 @@ export default function Banner({ programDetail, setAlert }) {
       );
     }
     else {
-      const provider = getProvider(videoUrl ? 'https://www.youtube.com/watch?v=o5xOmNabezQ' : "");
+      const provider = getProvider(videoUrl ? videoUrl : "");
       return (
         <VideoPlayer
           source={{
             type: provider,
-            src: videoUrl ? 'https://www.youtube.com/watch?v=o5xOmNabezQ' : "",
+            src: videoUrl ? videoUrl : "",
           }}
         />
       );
@@ -128,12 +128,14 @@ export default function Banner({ programDetail, setAlert }) {
                 alt=""
                 className="w-full h-full object-cover"
               />
-              <span
-                onClick={handleImageOpen}
-                className="absolute bottom-2 right-2 transform transition-transform duration-300 group-hover:scale-115 bg-gray-300 h-[41px] w-[41px] flex items-center justify-center rounded-full text-base font-semibold hover:bg-white cursor-pointer"
-              >
-                +{imgListLength-1}
-              </span>
+              {imgListLength > 0 &&
+                <span
+                  onClick={handleImageOpen}
+                  className="absolute bottom-2 right-2 transform transition-transform duration-300 group-hover:scale-115 bg-gray-300 h-[41px] w-[41px] flex items-center justify-center rounded-full text-base font-semibold hover:bg-white cursor-pointer"
+                >
+                  +{imgListLength - 1}
+                </span>
+              }
             </div>
             <div className="row-span-2 w-[364px] flex flex-col gap-y-[16px]">
               <div className="h-[192px] hover:scale-105 transition duration-500 border">

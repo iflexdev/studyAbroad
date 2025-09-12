@@ -1,8 +1,31 @@
 import { Star } from "lucide-react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Progress } from "../../../../utils/defaultHandlers/progress";
+import { handleGetReviews } from "../../../../api/ApiCallHandler.api";
+import Loader from "../../../../components/ui/Loader";
 
 export default function Review({ Review }) {
+
+  const [reviewDetail, setReviewDetail] = useState({});
+  const [alert, setAlert] = useState();
+  const [isLoading, setisLoading] = useState(false);
+  const [visibleCount, setVisibleCount] = useState(5);
+  const [isLoadMore, setIsLoadMore] = useState(false);
+
+  /* -------------------------------------------------------------------------- */
+  /*                        for fetching program detail data                    */
+  /* -------------------------------------------------------------------------- */
+  useEffect(() => {
+    const fetchProgramsDetail = async () => {
+      const programDetailData = await handleGetReviews(Review?.program_id, setAlert, setisLoading);
+      setReviewDetail(programDetailData?.data || []);
+      if (programDetailData?.data?.reviews?.length > 5) {
+        setIsLoadMore(true);
+      }
+    }
+    fetchProgramsDetail();
+  }, [Review]);
+
   const shortBy = [
     "5 Star Rating",
     "4 Star Rating",
@@ -11,9 +34,45 @@ export default function Review({ Review }) {
     "1 Star Rating",
   ];
 
-  function randomNumber(){
-    return Math.floor(Math.random() * 90) + 10; 
+  const ratingData = [
+    {
+      heading: "5 Star Rating",
+      numberOfRates: reviewDetail?.five
+    },
+    {
+      heading: "4 Star Rating",
+      numberOfRates: reviewDetail?.four
+    },
+    {
+      heading: "3 Star Rating",
+      numberOfRates: reviewDetail?.three
+    },
+    {
+      heading: "2 Star Rating",
+      numberOfRates: reviewDetail?.two
+    },
+    {
+      heading: "1 Star Rating",
+      numberOfRates: reviewDetail?.one
+    },
+  ];
+
+  // function randomNumber() {
+  //   return Math.floor(Math.random() * 90) + 10;
+  // }
+
+  function toggleReviews() {
+    if (visibleCount < reviewDetail?.reviews?.length) {
+      setVisibleCount(reviewDetail?.reviews?.length);
+    }
+    else {
+      setVisibleCount(5);
+    }
   }
+
+  // if(isLoading){
+
+  // }
 
 
   return (
@@ -24,7 +83,7 @@ export default function Review({ Review }) {
           {/* ------------------------------ ratting gross ----------------------------- */}
           <div className="flex flex-col gap-y-[24px] w-[200px] h-[190px] items-center justify-center border">
             <p className="text-[48px] leading-[52px] font-semibold tracking-widest">
-              {Review?.CourseRating || 4.8}
+              {parseFloat(reviewDetail?.averageRating)?.toFixed(1)}
             </p>
             <p className="flex items-center gap-1 flex-col">
               {/* <span className="flex items-center gap-1">
@@ -36,8 +95,8 @@ export default function Review({ Review }) {
               <span className="flex items-center gap-1">
                 {Array.from({ length: 5 }).map((_, index) => {
                   const starNumber = index + 1;
-                  const isFull = starNumber <= Math.floor(4.6);
-                  const isPartial = starNumber === Math.ceil(4.6) && !isFull;
+                  const isFull = starNumber <= Math.floor(parseFloat(reviewDetail?.averageRating)?.toFixed(1));
+                  const isPartial = starNumber === Math.ceil(parseFloat(reviewDetail?.averageRating)?.toFixed(1)) && !isFull;
 
                   return (
                     <div key={index} className="relative w-5 h-5">
@@ -64,14 +123,14 @@ export default function Review({ Review }) {
               </span>
 
               <span className="text-sm leading-[20px] font-medium tracking-widest">
-                Course Rating
+                Average Rating
               </span>
             </p>
           </div>
           {/* ------------------------------ ratting scale ----------------------------- */}
           <div className="flex justify-center">
             <div className="flex flex-col gap-y-4">
-              {(Review?.ratings || []).map((item, index) => {
+              {ratingData?.map((item, index) => {
                 const filledStars = 5 - index; // 5 → 1
                 return (
                   <div key={index} className="flex items-center gap-6">
@@ -86,18 +145,18 @@ export default function Review({ Review }) {
                       ))}
                     </p>
                     <p className="text-sm leading-[22px] tracking-widest">
-                      {item}
+                      {item?.heading}
                     </p>
-                    <p className="text-sm flex gap-6 items-center ">
+                    <p className="text-sm flex gap-6 items-center">
                       <Progress
                         className={"h-[8px] w-[376px] bg-gray-100"}
-                        value={(filledStars*100)/5}
+                        value={(filledStars * 100) / 5}
                         indicatorClassName={
                           "bg-gradient-to-r from-[#EAB308] to-[#FEF08A]"
                         }
                       />
                       {/* <span className="bg-yellow-500 h-[6px] w-[376px]"></span> */}
-                      <span className="tracking-widest">{randomNumber()}</span>
+                      <span className="tracking-widest">{item?.numberOfRates}</span>
                     </p>
                   </div>
                 )
@@ -124,7 +183,72 @@ export default function Review({ Review }) {
             </select>
           </div>
         </div>
+
+        {/* feedback section */}
+
+        {reviewDetail?.reviews?.length == 0 ? (
+          <p className="text-gray-500 ms-2 text-xl font-bold">
+            No reviews yet
+          </p>
+        ) : (
+          <div className="flex flex-col py-7 gap-7">
+            {reviewDetail?.reviews
+              ?.slice(0, visibleCount).map((review, index, arr) => (
+                <div
+                  key={review.id}
+                  className={`grid grid-cols-[auto_1fr] pb-7 ${index !== arr.length - 1 ? "border-b" : ""
+                    }`}
+                >
+                  {/* Left: Avatar */}
+                  <div className="flex items-start px-4">
+                    <img
+                      src={review?.student_profile}
+                      alt={review?.student}
+                      className="w-10 h-10 rounded-full"
+                    />
+                  </div>
+
+                  <div className="flex flex-col gap-2">
+                    {/* Name + Time */}
+                    <div className="flex flex-col ">
+                      <div className="font-medium text-sm">{review?.student}
+                        <span className="mx-2">•</span>
+                        <span className="text-sm text-gray-500">
+                          {review?.created_at}
+                        </span></div>
+
+                    </div>
+
+                    {/* Rating Stars */}
+                    <div className="flex p text-amber-400 ">
+                      {Array.from({ length: review.rating }).map((_, i) => (
+                        <Star key={i} size={16} fill="currentColor" />
+                      ))}
+                    </div>
+
+                    {/* Review Text */}
+                    <p className=" text-gray-700 leading-relaxed">
+                      {review.review}
+                    </p>
+                  </div>
+                </div>
+              ))}
+
+            {/* Load More button */}
+            {isLoadMore &&
+              <button
+                onClick={toggleReviews}
+                className="bg-gray-200 w-fit py-2 px-6 rounded hover:bg-gray-300 transition flex items-center gap-2"
+              >
+                <span>
+                  {visibleCount < reviewDetail?.reviews?.length ? "Load More" : "Show Less"}
+                </span>
+              </button>}
+          </div>
+        )}
       </div>
+
+      {isLoading && (<Loader />)}
     </>
   );
 }

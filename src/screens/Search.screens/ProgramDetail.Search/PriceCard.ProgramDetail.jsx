@@ -95,7 +95,7 @@ export default function PriceCard({ programDetail, alert, setAlert }) {
               <Icons name='clockHours' className="w-[35px] h-[35px]" />
               <div className="flex flex-col">
                 <p className="font-medium text-xl leading-[22px]">
-                  {programDetail?.total_duration}
+                  {programDetail?.total_duration || '--'}
                 </p>
                 <p className="font-medium text-base leading-[22px] text-gray-500">
                   Course Duration
